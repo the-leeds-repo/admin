@@ -4,7 +4,7 @@
     <gov-main-wrapper>
       <ck-loader v-if="loading" />
       <gov-grid-row v-else>
-        <vue-headful :title="`Connected Kingston - Service: ${service.name}`" />
+        <vue-headful :title="`${appName} - Service: ${service.name}`" />
 
         <gov-grid-column width="full">
           <gov-grid-row>
@@ -75,7 +75,7 @@ export default {
       // Fetch the services.
       const servicesResponse = await http.get(
         `/services/${this.$route.params.service}`,
-        { params: { include: 'organisation' } }
+        { params: { include: "organisation" } }
       );
       this.service = servicesResponse.data.data;
 

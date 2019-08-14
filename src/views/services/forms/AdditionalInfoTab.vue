@@ -131,7 +131,7 @@
 
         <gov-body>
           Please provide your {{ type }}’s public-facing contact details. These
-          will be displayed on your {{ type }}’s page on the Connected Kingston
+          will be displayed on your {{ type }}’s page on the {{ appName }}
           website.
         </gov-body>
 
@@ -258,22 +258,27 @@ export default {
         { text: "Three weeks", value: "three_weeks" },
         { text: "One month", value: "month" },
         { text: "Longer than a month", value: "longer" }
-      ]
+      ];
     },
     isFreeOptions() {
       return [
         { value: true, label: `Yes - The ${this.type} is free` },
         {
           value: false,
-          label: `No - there are elements of this ${this.type} that must be paid for`
+          label: `No - there are elements of this ${
+            this.type
+          } that must be paid for`
         }
       ];
     },
     videoEmbedHelpHref() {
-      const to = "info@connectedkingston.uk";
+      const to = this.contactEmail;
       const subject = `Make a video for my ${this.type}`;
-      const body =
-        `My ${this.type} is: xxx\n\nI am interested in making a video for my ${this.type} page on Connected Kingston.`;
+      const body = `My ${
+        this.type
+      } is: xxx\n\nI am interested in making a video for my ${
+        this.type
+      } page on ${this.appName}.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject

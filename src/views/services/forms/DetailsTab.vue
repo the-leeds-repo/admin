@@ -16,7 +16,7 @@
           @input="$emit('update:type', $event); $emit('clear', 'type')"
           id="type"
           label="What is it?"
-          hint="This option changes how your page is described on Connected Kingston"
+          :hint="`This option changes how your page is described on ${appName}`"
           :options="typeOptions"
           :error="errors.get('type')"
           v-if="false"
@@ -182,7 +182,7 @@ export default {
   },
   computed: {
     logoHelpHref() {
-      const to = "info@connectedkingston.uk";
+      const to = this.contactEmail;
       const subject = "Help uploading service logo";
 
       return `mailto:${to}?subject=${encodeURIComponent(subject)}`;
@@ -192,7 +192,7 @@ export default {
     async fetchOrganisations() {
       this.loading = true;
       let fetchedOrganisations = await this.fetchAll("/organisations", {
-        'filter[has_permission]': true
+        "filter[has_permission]": true
       });
       fetchedOrganisations = fetchedOrganisations.map(organisation => {
         return { text: organisation.name, value: organisation.id };
@@ -208,7 +208,7 @@ export default {
         this.$emit("update:slug", this.slugify(name));
         this.$emit("clear", "slug");
       }
-    },
+    }
   },
   created() {
     this.fetchOrganisations();

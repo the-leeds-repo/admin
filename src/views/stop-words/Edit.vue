@@ -1,7 +1,7 @@
 <template>
     <gov-width-container>
 
-        <vue-headful title="Connected Kingston - Edit Stop Words" />
+        <vue-headful :title="`${appName} - Edit Stop Words`" />
 
         <gov-back-link :to="{ name: 'admin-index-search-engine-stop-words' }">Back to stop words</gov-back-link>
         <gov-main-wrapper>
@@ -73,7 +73,7 @@ export default {
      * @link https://stackoverflow.com/questions/30106476/using-javascripts-atob-to-decode-base64-doesnt-properly-decode-utf-8-strings/30106551
      */
     base64Decode(string) {
-      string = string.split(',').pop()
+      string = string.split(",").pop();
       string = decodeURIComponent(
         atob(string)
           .split("")

@@ -45,12 +45,12 @@ export default {
     active: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
     success: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     }
   },
   methods: {
@@ -65,7 +65,7 @@ export default {
         "govuk-button--error": this.error,
         "govuk-button--start": this.start,
         "ck-button--active": this.active,
-        "ck-button--success": this.success,
+        "ck-button--success": this.success
       };
     }
   }

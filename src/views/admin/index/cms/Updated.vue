@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful :title="`Connected Kingston - Admin: CMS Updated`" />
+    <vue-headful :title="`${appName} - Admin: CMS Updated`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

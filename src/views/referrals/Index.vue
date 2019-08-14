@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful title="Connected Kingston - List Referrals" />
+    <vue-headful :title="`${appName} - List Referrals`" />
 
     <gov-back-link :to="{ name: 'dashboard' }">Back to dashboard</gov-back-link>
     <gov-main-wrapper>
@@ -149,9 +149,7 @@ export default {
         return "N/A";
       }
 
-      const workingDays = this.diffInBusinessDays(
-        referral.created_at
-      );
+      const workingDays = this.diffInBusinessDays(referral.created_at);
 
       return workingDays >= 10 ? "Due" : 10 - workingDays;
     }

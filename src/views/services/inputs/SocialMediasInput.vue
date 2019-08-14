@@ -15,7 +15,7 @@
         @input="onUrlInput({ index, value: $event })"
         :id="`social_medias.${index}.url`"
         label="Link to your page:"
-        hint="Copy the link from your browser, e.g. https://www.twitter.com/ConnectedKings or https://www.facebook.com/ConnectedKingston"
+        hint="Copy the link from your browser, e.g. https://www.twitter.com/TheLeedsRepo or https://www.facebook.com/TheLeedsRepo"
         type="url"
         :error="errors.get(`social_medias.${index}.url`)"
       />

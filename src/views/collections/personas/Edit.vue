@@ -2,7 +2,7 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`Connected Kingston - Edit Collection Persona: ${collection.name}`" />
+      <vue-headful :title="`${appName} - Edit Collection Persona: ${collection.name}`" />
 
       <gov-back-link :to="{ name: 'admin-index-collections-personas' }">Back to collection personas</gov-back-link>
       <gov-main-wrapper>
@@ -89,17 +89,20 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(`/collections/personas/${this.collection.id}`, (config, data) => {
-        // Unset the image field if not provided.
-        if (data.image_file_id === null) {
-          delete data.image_file_id;
-        }
+      await this.form.put(
+        `/collections/personas/${this.collection.id}`,
+        (config, data) => {
+          // Unset the image field if not provided.
+          if (data.image_file_id === null) {
+            delete data.image_file_id;
+          }
 
-        // Set the image to null if explicitly removed.
-        if (data.image_file_id === false) {
-          data.image_file_id = null;
+          // Set the image to null if explicitly removed.
+          if (data.image_file_id === false) {
+            data.image_file_id = null;
+          }
         }
-      });
+      );
       this.$router.push({ name: "admin-index-collections-personas" });
     },
     onDelete() {

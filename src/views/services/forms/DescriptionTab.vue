@@ -6,7 +6,7 @@
 
         <gov-body>
           These sections should describe what your {{ type }} offers and is the
-          main body of content on your page on Connected Kingston.
+          main body of content on your page on {{ appName }}.
         </gov-body>
 
         <gov-section-break size="l" />
@@ -59,7 +59,7 @@
 </template>
 
 <script>
-import CkOfferingsInput from '@/views/services/inputs/OfferingsInput.vue';
+import CkOfferingsInput from "@/views/services/inputs/OfferingsInput.vue";
 
 export default {
   name: "DescriptionTab",

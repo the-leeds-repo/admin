@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful title="Connected Kingston - Logout" />
+    <vue-headful :title="`${appName} - Logout`" />
 
     <gov-main-wrapper>
       <gov-grid-row>

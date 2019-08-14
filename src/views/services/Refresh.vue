@@ -4,7 +4,7 @@
 
     <template v-else>
       <vue-headful
-        :title="`Connected Kingston - Refresh Service: ${service.name}`"
+        :title="`${appName} - Refresh Service: ${service.name}`"
       />
 
       <gov-back-link
@@ -88,7 +88,7 @@ export default {
 
   computed: {
     token() {
-      return this.$route.query.token || '';
+      return this.$route.query.token || "";
     }
   },
 

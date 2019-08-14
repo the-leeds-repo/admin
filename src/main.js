@@ -140,7 +140,9 @@ Vue.mixin({
   data() {
     return {
       auth: Auth,
-      moment
+      moment,
+      appName: process.env.VUE_APP_NAME,
+      contactEmail: process.env.VUE_APP_CONTACT_EMAIL
     };
   },
   computed: {

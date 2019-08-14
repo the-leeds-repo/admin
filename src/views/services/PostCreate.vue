@@ -1,6 +1,6 @@
 <template>
   <gov-width-container>
-    <vue-headful title="Connected Kingston - Add Service" />
+    <vue-headful :title="`${appName} - Add Service`" />
 
     <gov-back-link :to="{ name: 'services-show', params: { service: $route.params.service } }">
       Back to service
@@ -41,16 +41,16 @@ export default {
     return {
       service: null,
       loading: false
-    }
+    };
   },
 
   methods: {
     async fetchService() {
       this.loading = true;
 
-      const { data: { data: service } } = await http.get(
-        `/services/${this.$route.params.service}`
-      );
+      const {
+        data: { data: service }
+      } = await http.get(`/services/${this.$route.params.service}`);
       this.service = service;
 
       this.loading = false;
@@ -60,5 +60,5 @@ export default {
   created() {
     this.fetchService();
   }
-}
+};
 </script>

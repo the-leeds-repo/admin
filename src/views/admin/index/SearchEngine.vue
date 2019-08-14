@@ -1,6 +1,6 @@
 <template>
   <div>
-    <vue-headful title="Connected Kingston - Admin: Search Engine" />
+    <vue-headful :title="`${appName} - Admin: Search Engine`" />
 
     <gov-tabs :tabs="tabs">
       <router-view />

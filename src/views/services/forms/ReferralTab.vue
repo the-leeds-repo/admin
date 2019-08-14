@@ -137,9 +137,12 @@ export default {
     referralMethodOptions() {
       return [
         { text: "Please select", value: null, disabled: true },
-        { text: `Yes - Through ${appName}`, value: "internal" },
+        { text: `Yes - Through ${this.appName}`, value: "internal" },
         { text: "Yes - Through an external form", value: "external" },
-        { text: `No - This ${this.type} doesn’t accept referrals`, value: "none" }
+        {
+          text: `No - This ${this.type} doesn’t accept referrals`,
+          value: "none"
+        }
       ];
     },
     referralIsInternalOrExternal() {
@@ -148,8 +151,11 @@ export default {
     contactAdminTeamEmail() {
       const to = this.contactEmail;
       const subject = `Turn referrals on for my ${this.type}`;
-      const body =
-        `${this.$options.filters.ucfirst(this.type)} Name: XXX\n\nWe are interested in finding out more about accepting referrals through ${appName}.`;
+      const body = `${this.$options.filters.ucfirst(
+        this.type
+      )} Name: XXX\n\nWe are interested in finding out more about accepting referrals through ${
+        this.appName
+      }.`;
 
       return `mailto:${to}?subject=${encodeURIComponent(
         subject

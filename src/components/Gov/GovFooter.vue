@@ -33,7 +33,9 @@
                     </template>
 
                     <span class="govuk-footer__licence-description">
-                        For any feedback or technical queries, please email <gov-link href="`mailto:${contactEmail}`">{{ contactEmail }}</gov-link>
+                        For any feedback or technical queries, please email <gov-link :href="`mailto:${contactEmail}`">{{ contactEmail }}</gov-link>.
+                        <br>
+                        This project is based upon the <gov-link href="https://github.com/RoyalBoroughKingston/ck-backend">Connected Kingston</gov-link> project.
                     </span>
                 </div>
                 <div class="govuk-footer__meta-item">

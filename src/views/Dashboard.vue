@@ -41,6 +41,15 @@
         </gov-grid-column>
 
         <gov-grid-column width="one-half">
+          <gov-heading size="l">Resources</gov-heading>
+          <gov-body>View and edit media resources.</gov-body>
+          <gov-button start :to="{ name: 'resources-index' }">
+            Go to resources
+          </gov-button>
+          <gov-section-break size="m" />
+        </gov-grid-column>
+
+        <gov-grid-column width="one-half">
           <gov-heading size="l">Referrals</gov-heading>
           <gov-body>View and respond to referrals to your service(s).</gov-body>
           <gov-button start :to="{ name: 'referrals-index' }">

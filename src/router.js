@@ -92,6 +92,18 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/resources/:resource/edit",
+      name: "resources-edit",
+      component: () => import("@/views/resources/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/resources/:resource/updated",
+      name: "resources-updated",
+      component: () => import("@/views/resources/Updated"),
+      meta: { auth: true }
+    },
+    {
       path: "/locations",
       name: "locations-index",
       component: () => import("@/views/locations/Index"),

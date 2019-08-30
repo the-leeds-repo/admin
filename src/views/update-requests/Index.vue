@@ -86,6 +86,8 @@ export default {
           return "Location";
         case "service_locations":
           return "Service location";
+        case "resources":
+          return "Resource";
         default:
           return "Invalid type";
       }

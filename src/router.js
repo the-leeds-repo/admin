@@ -80,6 +80,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/resources/create",
+      name: "resources-create",
+      component: () => import("@/views/resources/Create"),
+      meta: { auth: true }
+    },
+    {
       path: "/locations",
       name: "locations-index",
       component: () => import("@/views/locations/Index"),

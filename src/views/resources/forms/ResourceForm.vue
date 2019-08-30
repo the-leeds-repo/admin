@@ -39,7 +39,7 @@
       :value="url"
       @input="onInput('url', $event)"
       id="url"
-      label="What is the web address of your resource?"
+      label="What is the URL of your resource?"
       hint="This must start with ‘http://’ or ‘https://’."
       type="url"
       :error="errors.get('url')"

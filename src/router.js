@@ -86,6 +86,12 @@ let router = new Router({
       meta: { auth: true }
     },
     {
+      path: "/resources/:resource",
+      name: "resources-show",
+      component: () => import("@/views/resources/Show"),
+      meta: { auth: true }
+    },
+    {
       path: "/locations",
       name: "locations-index",
       component: () => import("@/views/locations/Index"),

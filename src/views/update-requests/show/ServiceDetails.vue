@@ -291,7 +291,7 @@
         </gov-table-row>
 
         <gov-table-row v-if="service.hasOwnProperty('category_taxonomies')">
-          <gov-table-header top scope="row">Category taxonomies</gov-table-header>
+          <gov-table-header top scope="row">Topic taxonomies</gov-table-header>
           <gov-table-cell>
             <gov-list bullet v-if="original.category_taxonomies.length > 0">
               <li v-for="(taxonomy, index) in original.category_taxonomies" :key="`category_taxonomies.${index}`">

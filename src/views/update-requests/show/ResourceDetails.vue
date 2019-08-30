@@ -82,7 +82,7 @@
         </gov-table-row>
 
         <gov-table-row v-if="resource.hasOwnProperty('category_taxonomies')">
-          <gov-table-header top scope="row">Topics</gov-table-header>
+          <gov-table-header top scope="row">Topic taxonomies</gov-table-header>
           <gov-table-cell>
             <gov-list bullet v-if="original.category_taxonomies.length > 0">
               <li

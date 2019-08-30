@@ -93,17 +93,37 @@
       hint="This is the date which the resource was last modified (since being published)."
       :error="errors.get('last_modified_at')"
     />
+
+    <gov-form-group :invalid="errors.has('category_taxonomies')">
+      <gov-label for="category_taxonomies" class="govuk-!-font-weight-bold">
+        <slot name="label">Topics</slot>
+      </gov-label>
+
+      <category-taxonomy-input
+        :value="category_taxonomies"
+        @input="onInput('category_taxonomies', $event)"
+        :error="errors.get('category_taxonomies')"
+      />
+
+      <gov-error-message
+        v-if="errors.has('category_taxonomies')"
+        v-text="errors.get('category_taxonomies')"
+        for="category_taxonomies"
+      />
+    </gov-form-group>
   </div>
 </template>
 
 <script>
 import CkDateInput from "@/components/Ck/CkDateInput.vue";
+import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput.vue";
 
 export default {
   name: "CreateResourceForm",
 
   components: {
-    CkDateInput
+    CkDateInput,
+    CategoryTaxonomyInput
   },
 
   props: {

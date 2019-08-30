@@ -33,7 +33,7 @@
 
           <ck-resource-listing-table
             ref="resourcesTable"
-            uri="/resources"
+            uri="/resources?include=organisation"
             :params="params"
             default-sort="name"
             :columns="[

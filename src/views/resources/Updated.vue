@@ -54,9 +54,9 @@ export default {
     async fetchResource() {
       this.loading = true;
 
-      const { data: { data: resource } } = await http.get(
-        `/resources/${this.$route.params.resource}`
-      );
+      const {
+        data: { data: resource }
+      } = await http.get(`/resources/${this.$route.params.resource}`);
       this.resource = resource;
 
       this.loading = false;

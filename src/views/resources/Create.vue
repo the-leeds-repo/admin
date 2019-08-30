@@ -58,7 +58,9 @@ export default {
   },
   methods: {
     async onSubmit() {
-      const { data: { id } } = await this.form.post("/resources");
+      const {
+        data: { id }
+      } = await this.form.post("/resources");
 
       this.$router.push({
         name: "resources-show",

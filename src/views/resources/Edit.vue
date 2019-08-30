@@ -79,9 +79,9 @@ export default {
     async fetchResource() {
       this.loading = true;
 
-      const { data: { data: resource } } = await http.get(
-        `/resources/${this.$route.params.resource}`
-      );
+      const {
+        data: { data: resource }
+      } = await http.get(`/resources/${this.$route.params.resource}`);
 
       this.resource = resource;
 
@@ -104,59 +104,57 @@ export default {
     },
 
     async onSubmit() {
-      await this.form.put(
-        `/resources/${this.resource.id}`,
-        (config, data) => {
-          // Remove any unchanged values.
-          if (data.organisation_id === this.resource.organisation_id) {
-            delete data.organisation_id;
-          }
-
-          if (data.name === this.resource.name) {
-            delete data.name;
-          }
-
-          if (data.name === this.resource.name) {
-            delete data.name;
-          }
-
-          if (data.slug === this.resource.slug) {
-            delete data.slug;
-          }
-
-          if (data.description === this.resource.description) {
-            delete data.description;
-          }
-
-          if (data.url === this.resource.url) {
-            delete data.url;
-          }
-
-          if (data.license === (this.resource.license || "")) {
-            delete data.license;
-          }
-
-          if (data.author === (this.resource.author || "")) {
-            delete data.author;
-          }
-
-          if (
-            JSON.stringify(data.category_taxonomies) === JSON.stringify(
-              this.resource.category_taxonomies.map(taxonomy => taxonomy.id)
-            )
-          ) {
-            delete data.category_taxonomies;
-          }
-
-          if (data.published_at === (this.resource.published_at || "")) {
-            delete data.published_at;
-          }
-
-          if (data.last_modified_at === (this.resource.last_modified_at || "")) {
-            delete data.last_modified_at;
-          }
+      await this.form.put(`/resources/${this.resource.id}`, (config, data) => {
+        // Remove any unchanged values.
+        if (data.organisation_id === this.resource.organisation_id) {
+          delete data.organisation_id;
         }
-      );
+
+        if (data.name === this.resource.name) {
+          delete data.name;
+        }
+
+        if (data.name === this.resource.name) {
+          delete data.name;
+        }
+
+        if (data.slug === this.resource.slug) {
+          delete data.slug;
+        }
+
+        if (data.description === this.resource.description) {
+          delete data.description;
+        }
+
+        if (data.url === this.resource.url) {
+          delete data.url;
+        }
+
+        if (data.license === (this.resource.license || "")) {
+          delete data.license;
+        }
+
+        if (data.author === (this.resource.author || "")) {
+          delete data.author;
+        }
+
+        if (
+          JSON.stringify(data.category_taxonomies) ===
+          JSON.stringify(
+            this.resource.category_taxonomies.map(taxonomy => taxonomy.id)
+          )
+        ) {
+          delete data.category_taxonomies;
+        }
+
+        if (data.published_at === (this.resource.published_at || "")) {
+          delete data.published_at;
+        }
+
+        if (data.last_modified_at === (this.resource.last_modified_at || "")) {
+          delete data.last_modified_at;
+        }
+      });
 
       this.$router.push({
         name: "resources-updated",

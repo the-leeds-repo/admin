@@ -119,7 +119,9 @@ export default {
       // has been updated, then eager load the organisation and append to the
       // data.
       if (
-        ["services", "resources"].includes(this.updateRequest.updateable_type) &&
+        ["services", "resources"].includes(
+          this.updateRequest.updateable_type
+        ) &&
         this.updateRequest.data.hasOwnProperty("organisation_id")
       ) {
         const {

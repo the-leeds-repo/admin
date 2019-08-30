@@ -71,7 +71,9 @@ export default {
     async fetchResource() {
       this.loading = true;
 
-      const { data: { data: resource } } = await http.get(
+      const {
+        data: { data: resource }
+      } = await http.get(
         `/resources/${this.$route.params.resource}?include=organisation`
       );
 

@@ -95,30 +95,30 @@ export default {
     },
 
     day() {
-      return this.parts.length === 1 ? '' : this.parts[2];
+      return this.parts.length === 1 ? "" : this.parts[2];
     },
 
     month() {
-      return this.parts.length === 1 ? '' : this.parts[1];
+      return this.parts.length === 1 ? "" : this.parts[1];
     },
 
     year() {
-      return this.parts.length === 1 ? '' : this.parts[0];
+      return this.parts.length === 1 ? "" : this.parts[0];
     }
   },
 
   methods: {
     onInput({ day = this.day, month = this.month, year = this.year }) {
-      if (day === '' && month === '' && year === '') {
-        this.$emit('input', '');
+      if (day === "" && month === "" && year === "") {
+        this.$emit("input", "");
         return;
       }
 
-      this.$emit('input', `${year}-${month}-${day}`);
+      this.$emit("input", `${year}-${month}-${day}`);
     }
   },
 
-  mounted () {
+  mounted() {
     this.id = this._uid;
   }
 };

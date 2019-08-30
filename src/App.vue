@@ -47,6 +47,7 @@ export default {
       return [
         { text: "Services", to: { name: "services-index" } },
         { text: "Locations", to: { name: "locations-index" } },
+        { text: "Resources", to: { name: "resources-index" } },
         { text: "Referrals", to: { name: "referrals-index" } },
         { text: "Organisations", to: { name: "organisations-index" } },
         {

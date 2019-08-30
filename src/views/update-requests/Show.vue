@@ -40,6 +40,12 @@
             :requested-at="updateRequest.created_at"
             :service-location="updateRequest.data"
           />
+          <resource-details
+            v-else-if="updateRequest.updateable_type === 'resources'"
+            :update-request-id="updateRequest.id"
+            :requested-at="updateRequest.created_at"
+            :resource="updateRequest.data"
+          />
           <gov-body v-else>Update request is invalid</gov-body>
 
           <gov-section-break size="xl"/>
@@ -80,6 +86,7 @@ import OrganisationDetails from "@/views/update-requests/show/OrganisationDetail
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 import LocationDetails from "@/views/update-requests/show/LocationDetails";
 import ServiceLocationDetails from "@/views/update-requests/show/ServiceLocationDetails";
+import ResourceDetails from "@/views/update-requests/show/ResourceDetails";
 
 export default {
   name: "ShowUpdateRequest",
@@ -87,7 +94,8 @@ export default {
     OrganisationDetails,
     ServiceDetails,
     LocationDetails,
-    ServiceLocationDetails
+    ServiceLocationDetails,
+    ResourceDetails
   },
   data() {
     return {
@@ -107,10 +115,13 @@ export default {
       this.updateRequest = data;
       this.updateRequest.data.id = data.updateable_id;
 
-      // If the update request is for a service, and the organisation has been
-      // updated, then eager load the organisation and append to the data.
+      // If the update request is for a service/resource, and the organisation
+      // has been updated, then eager load the organisation and append to the
+      // data.
       if (
-        this.updateRequest.updateable_type === "services" &&
+        ["services", "resources"].includes(
+          this.updateRequest.updateable_type
+        ) &&
         this.updateRequest.data.hasOwnProperty("organisation_id")
       ) {
         const {
@@ -153,6 +164,12 @@ export default {
               this.$router.push({
                 name: "service-locations-show",
                 params: { serviceLocation: this.updateRequest.updateable_id }
+              });
+              break;
+            case "resources":
+              this.$router.push({
+                name: "resources-show",
+                params: { resource: this.updateRequest.updateable_id }
               });
               break;
             default:

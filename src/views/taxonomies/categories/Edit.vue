@@ -2,17 +2,17 @@
   <gov-width-container>
     <ck-loader v-if="loading" />
     <template v-else>
-      <vue-headful :title="`${appName} - Edit Taxonomy Category: ${taxonomy.name}`" />
+      <vue-headful :title="`${appName} - Edit Taxonomy Topic: ${taxonomy.name}`" />
 
-      <gov-back-link :to="{ name: 'admin-index-taxonomies' }">Back to taxonomy categories</gov-back-link>
+      <gov-back-link :to="{ name: 'admin-index-taxonomies' }">Back to taxonomy topics</gov-back-link>
       <gov-main-wrapper>
         <gov-grid-row>
           <gov-grid-column width="one-half">
             <gov-heading size="xl">
               <gov-caption size="xl">Taxonomies</gov-caption>
-              Categories
+              Topics
             </gov-heading>
-            <gov-heading size="m">Edit category</gov-heading>
+            <gov-heading size="m">Edit topic</gov-heading>
             <gov-body>
               From this page you can change the name of the taxonomy 'tags' on
               the site and how they relate to each other. These should not be
@@ -34,7 +34,7 @@
             <gov-section-break size="l" />
 
             <ck-delete-button
-              resource="category"
+              resource="topic"
               :endpoint="`/taxonomies/categories/${this.taxonomy.id}`"
               @deleted="onDelete"
             />

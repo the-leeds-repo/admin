@@ -1,11 +1,11 @@
 <template>
   <div>
-    <gov-heading size="l">Taxonomies (Tags)</gov-heading>
+    <gov-heading size="l">Taxonomies (Topics)</gov-heading>
     <gov-grid-row>
       <gov-grid-column width="one-half">
         <gov-body>
           These are a list of ‘tags’ that are applied to a {{ type }}. These tags
-          help the {{ type }} be found in categories and keyword searches.
+          help the {{ type }} be found in topics and keyword searches.
         </gov-body>
         <gov-body>
           On creation of a new {{ type }}, the admin team will select the tags that

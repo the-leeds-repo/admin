@@ -2,21 +2,21 @@
   <div>
     <gov-grid-row>
       <gov-grid-column width="two-thirds">
-        <gov-heading size="l">Taxonomy: Categories</gov-heading>
+        <gov-heading size="l">Taxonomy: Topics</gov-heading>
 
         <gov-body>
-          Taxonomies are the 'tags' that we assign to services, in order for them to appear
-          within search results and categories. They are pulled from the
-          <gov-link href="https://about.auntbertha.com/openeligibility">Aunt Bertha Open Eligibility Standard</gov-link>.
+          Taxonomies are the 'tags' that we assign to services, in order for
+          them to appear within search results and topics.
         </gov-body>
 
         <gov-body>
-          From this page, you can edit the taxonomies available to be applied to a service, as well as add new ones.
+          From this page, you can edit the taxonomies available to be applied to
+          a service and resource, as well as add new ones.
         </gov-body>
       </gov-grid-column>
 
       <gov-grid-column v-if="auth.isSuperAdmin" width="one-third">
-        <gov-button :to="{ name: 'taxonomies-categories-create' }" success expand>Add a new category</gov-button>
+        <gov-button :to="{ name: 'taxonomies-categories-create' }" success expand>Add a new topic</gov-button>
       </gov-grid-column>
     </gov-grid-row>
 

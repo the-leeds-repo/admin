@@ -350,8 +350,7 @@ let router = new Router({
             {
               path: "snomed",
               name: "admin-index-collections-snomed",
-              component: () =>
-                import("@/views/admin/index/collections/Snomed")
+              component: () => import("@/views/admin/index/collections/Snomed")
             }
           ]
         },

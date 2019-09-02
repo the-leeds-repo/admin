@@ -3,7 +3,7 @@
     <ck-loader v-if="loading" />
     <template v-else>
       <vue-headful
-        :title="`${appName} - Edit SNOMED Collection: ${collection.name}`"
+        :title="`${appName} - Edit SNOMED Collection: ${collection.code}`"
       />
 
       <gov-back-link :to="{ name: 'admin-index-collections-snomed' }">

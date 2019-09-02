@@ -37,7 +37,9 @@
         <ck-loader v-if="loading" />
         <gov-list v-else bullet>
           <li v-for="collection in collections" :key="collection.id">
-            {{ collection.name }}&nbsp;
+            <strong>{{ collection.code }}:</strong>
+            {{ collection.name || 'N/A' }}
+            <!---->&nbsp;<!---->
             <gov-link
               v-if="auth.isGlobalAdmin"
               :to="{
@@ -52,7 +54,7 @@
               @click="onMoveUp(collection)"
               v-if="collection.order > 1"
             >(Move up)</gov-link>
-
+            <!---->&nbsp;<!---->
             <gov-link
               @click="onMoveDown(collection)"
               v-if="collection.order < collections.length"

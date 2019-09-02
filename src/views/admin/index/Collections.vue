@@ -18,7 +18,8 @@ export default {
         {
           heading: "Personas",
           to: { name: "admin-index-collections-personas" }
-        }
+        },
+        { heading: "SNOMED", to: { name: "admin-index-collections-snomed" } }
       ]
     };
   }

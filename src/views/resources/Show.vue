@@ -24,7 +24,7 @@
 
             <ck-delete-button
               resource="resource"
-              :endpoint="`/resourcees/${this.resource.id}`"
+              :endpoint="`/resources/${this.resource.id}`"
               @deleted="onDelete"
             />
           </template>

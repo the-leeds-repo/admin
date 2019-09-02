@@ -342,10 +342,16 @@ let router = new Router({
                 import("@/views/admin/index/collections/Categories")
             },
             {
-              path: "organisations",
+              path: "personas",
               name: "admin-index-collections-personas",
               component: () =>
                 import("@/views/admin/index/collections/Personas")
+            },
+            {
+              path: "snomed",
+              name: "admin-index-collections-snomed",
+              component: () =>
+                import("@/views/admin/index/collections/Snomed")
             }
           ]
         },
@@ -489,6 +495,18 @@ let router = new Router({
       path: "/collections/personas/:collection/edit",
       name: "collections-personas-edit",
       component: () => import("@/views/collections/personas/Edit"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/snomed/create",
+      name: "collections-snomed-create",
+      component: () => import("@/views/collections/snomed/Create"),
+      meta: { auth: true }
+    },
+    {
+      path: "/collections/snomed/:collection/edit",
+      name: "collections-snomed-edit",
+      component: () => import("@/views/collections/snomed/Edit"),
       meta: { auth: true }
     },
     {

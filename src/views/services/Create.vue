@@ -115,26 +115,10 @@
               :offerings.sync="form.offerings"
               :description.sync="form.description"
             >
-              <gov-button @click="onNext" start>Next</gov-button>
-            </description-tab>
-
-            <referral-tab
-              v-if="isTabActive('referral')"
-              @clear="form.$errors.clear($event); errors = {}"
-              :errors="form.$errors"
-              :is-global-admin="auth.isGlobalAdmin"
-              :is-super-admin="auth.isSuperAdmin"
-              :type="form.type"
-              :show_referral_disclaimer.sync="form.show_referral_disclaimer"
-              :referral_method.sync="form.referral_method"
-              :referral_button_text.sync="form.referral_button_text"
-              :referral_email.sync="form.referral_email"
-              :referral_url.sync="form.referral_url"
-            >
               <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
               <ck-submit-error v-if="form.$errors.any()" />
-            </referral-tab>
+            </description-tab>
 
           </gov-tabs>
         </gov-grid-column>
@@ -150,7 +134,6 @@ import DescriptionTab from "@/views/services/forms/DescriptionTab";
 import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
-import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
 
 export default {
@@ -161,7 +144,6 @@ export default {
     AdditionalInfoTab,
     UsefulInfoTab,
     WhoForTab,
-    ReferralTab,
     TaxonomiesTab
   },
   data() {
@@ -221,8 +203,7 @@ export default {
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
-        { id: "description", heading: "Description", active: false },
-        { id: "referral", heading: "Referral", active: false }
+        { id: "description", heading: "Description", active: false }
       ]
     };
   },

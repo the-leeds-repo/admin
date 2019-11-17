@@ -100,6 +100,15 @@
           v-if="auth.isGlobalAdmin"
         />
 
+        <ck-date-input
+          id="ends_at"
+          :value="ends_at"
+          @input="$emit('update:ends_at', $event); $emit('clear', 'ends_at')"
+          :error="errors.get('ends_at')"
+          label="End date"
+          :hint="`The date which this ${type} should be made inactive`"
+        />
+
         <template v-if="false">
           <gov-heading size="m">Gallery items</gov-heading>
 
@@ -125,10 +134,11 @@
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
 import CkGalleryItemsInput from "@/views/services/inputs/GalleryItemsInput";
+import CkDateInput from "@/components/Ck/CkDateInput";
 
 export default {
   name: "DetailsTab",
-  components: { CkImageInput, CkGalleryItemsInput },
+  components: { CkImageInput, CkGalleryItemsInput, CkDateInput },
   props: {
     errors: {
       required: true
@@ -154,6 +164,9 @@ export default {
       required: true
     },
     status: {
+      required: true
+    },
+    ends_at: {
       required: true
     },
     gallery_items: {

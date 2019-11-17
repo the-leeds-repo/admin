@@ -47,6 +47,10 @@
           <gov-table-header top scope="row">Status</gov-table-header>
           <gov-table-cell v-html="service.status === 'active' ? 'Enabled' : 'Disabled'" />
         </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">End date</gov-table-header>
+          <gov-table-cell>{{ service.ends_at | endsAt }}</gov-table-cell>
+        </gov-table-row>
         <gov-table-row v-if="false">
           <gov-table-header top scope="row">Gallery items ({{ imageUrls.length }})</gov-table-header>
           <gov-table-cell style="width: 50%;">
@@ -60,6 +64,7 @@
 </template>
 
 <script>
+import moment from 'moment';
 import CkCarousel from "@/components/Ck/CkCarousel";
 
 export default {
@@ -77,6 +82,16 @@ export default {
   computed: {
     imageUrls() {
       return this.service.gallery_items.map(galleryItem => galleryItem.url);
+    }
+  },
+
+  filters: {
+    endsAt(date) {
+      if (date === null || date === "") {
+        return "No end date";
+      }
+
+      return moment(date).format('D/M/YYYY');
     }
   }
 };

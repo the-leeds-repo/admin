@@ -28,11 +28,6 @@
                     <gov-label for="filter[status]">Status</gov-label>
                     <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
                   </gov-form-group>
-
-                  <gov-form-group>
-                    <gov-label for="filter[referral_method]">Referral method</gov-label>
-                    <gov-select v-model="filters.referral_method" id="filter[referral_method]" name="filter[referral_method]" :options="referralMethods"/>
-                  </gov-form-group>
                 </template>
               </ck-table-filters>
             </gov-grid-column>
@@ -50,7 +45,6 @@
               { heading: 'Service name', sort: 'name', render: (service) => service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (service) => service.organisation.name },
               { heading: 'Status', render: (service) => displayStatus(service.status) },
-              { heading: 'Referral method', render: (service) => displayReferralMethod(service.referral_method) },
             ]"
             :view-route="(service) => {
               return {
@@ -78,19 +72,12 @@ export default {
       filters: {
         name: "",
         organisation_name: "",
-        status: "",
-        referral_method: ""
+        status: ""
       },
       statuses: [
         { value: "", text: "All" },
         { value: "active", text: "Enabled" },
         { value: "inactive", text: "Disabled" }
-      ],
-      referralMethods: [
-        { value: "", text: "All" },
-        { value: "internal", text: "Internal" },
-        { value: "external", text: "External" },
-        { value: "none", text: "None" }
       ]
     };
   },
@@ -111,10 +98,6 @@ export default {
 
       if (this.filters.status !== "") {
         params["filter[status]"] = this.filters.status;
-      }
-
-      if (this.filters.referral_method !== "") {
-        params["filter[referral_method]"] = this.filters.referral_method;
       }
 
       return params;

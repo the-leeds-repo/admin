@@ -106,23 +106,6 @@
                   :intro.sync="form.intro"
                   :offerings.sync="form.offerings"
                   :description.sync="form.description"
-                >
-                  <gov-button @click="onNext" start>Next</gov-button>
-                </description-tab>
-
-                <referral-tab
-                  v-if="isTabActive('referral')"
-                  @clear="form.$errors.clear($event); errors = {}"
-                  :errors="form.$errors"
-                  :is-global-admin="auth.isGlobalAdmin"
-                  :is-super-admin="auth.isSuperAdmin"
-                  :original-data="form.$originalData"
-                  :type="form.type"
-                  :show_referral_disclaimer.sync="form.show_referral_disclaimer"
-                  :referral_method.sync="form.referral_method"
-                  :referral_button_text.sync="form.referral_button_text"
-                  :referral_email.sync="form.referral_email"
-                  :referral_url.sync="form.referral_url"
                 />
 
               </gov-tabs>
@@ -186,7 +169,6 @@ import DescriptionTab from "@/views/services/forms/DescriptionTab";
 import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
-import ReferralTab from "@/views/services/forms/ReferralTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
 import ServiceDetails from "@/views/update-requests/show/ServiceDetails";
 
@@ -198,7 +180,6 @@ export default {
     AdditionalInfoTab,
     UsefulInfoTab,
     WhoForTab,
-    ReferralTab,
     TaxonomiesTab,
     ServiceDetails
   },
@@ -211,8 +192,7 @@ export default {
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
-        { id: "description", heading: "Description", active: false },
-        { id: "referral", heading: "Referral", active: false }
+        { id: "description", heading: "Description", active: false }
       ],
       errors: {},
       service: null,

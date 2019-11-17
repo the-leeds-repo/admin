@@ -74,21 +74,6 @@ export default {
           })
         },
         {
-          type: "Feedback Export",
-          description:
-            "Generate a report of all the feedback posted to the site using " +
-            "the inbuilt feedback feature between certain times. ",
-          scheduleForm: new Form({
-            report_type: "Feedback Export",
-            repeat_type: null
-          }),
-          generateForm: new Form({
-            report_type: "Feedback Export",
-            starts_at: "",
-            ends_at: ""
-          })
-        },
-        {
           type: "Locations Export",
           description:
             "Generate a report with all the locations of services on " +
@@ -114,36 +99,6 @@ export default {
           }),
           generateForm: new Form({
             report_type: "Organisations Export",
-            starts_at: "",
-            ends_at: ""
-          })
-        },
-        {
-          type: "Referrals Export",
-          description:
-            "Generate a report of all referrals between a certain time " +
-            "period. The report contains no personal information.",
-          scheduleForm: new Form({
-            report_type: "Referrals Export",
-            repeat_type: null
-          }),
-          generateForm: new Form({
-            report_type: "Referrals Export",
-            starts_at: "",
-            ends_at: ""
-          })
-        },
-        {
-          type: "Search Histories Export",
-          description:
-            "Generate a report of all the keyword search queries entered on " +
-            "the site, between a certain time period.",
-          scheduleForm: new Form({
-            report_type: "Search Histories Export",
-            repeat_type: null
-          }),
-          generateForm: new Form({
-            report_type: "Search Histories Export",
             starts_at: "",
             ends_at: ""
           })
@@ -254,16 +209,10 @@ export default {
       switch (reportType.type) {
         case "Audit Logs Export":
           return true;
-        case "Feedback Export":
-          return true;
         case "Locations Export":
           return false;
         case "Organisations Export":
           return false;
-        case "Referrals Export":
-          return true;
-        case "Search Histories Export":
-          return true;
         case "Services Export":
           return false;
         case "Users Export":

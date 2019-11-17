@@ -49,15 +49,6 @@
           <gov-section-break size="m" />
         </gov-grid-column>
 
-        <gov-grid-column width="one-half">
-          <gov-heading size="l">Referrals</gov-heading>
-          <gov-body>View and respond to referrals to your service(s).</gov-body>
-          <gov-button start :to="{ name: 'referrals-index' }">
-            Go to referrals
-          </gov-button>
-          <gov-section-break size="m" />
-        </gov-grid-column>
-
         <gov-grid-column width="one-half" v-if="auth.isGlobalAdmin">
           <gov-heading size="l">Organisations</gov-heading>
           <gov-body>Add or edit organisations on {{ appName }}.</gov-body>

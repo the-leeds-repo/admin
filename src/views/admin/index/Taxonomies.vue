@@ -14,11 +14,7 @@ export default {
   data() {
     return {
       tabs: [
-        { heading: "Topics", to: { name: "admin-index-taxonomies" } },
-        {
-          heading: "Organisations",
-          to: { name: "admin-index-taxonomies-organisations" }
-        }
+        { heading: "Topics", to: { name: "admin-index-taxonomies" } }
       ]
     };
   }

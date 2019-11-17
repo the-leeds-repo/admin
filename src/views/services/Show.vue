@@ -63,8 +63,7 @@ export default {
         { heading: "Good to know", to: { name: "services-show-useful-info" } },
         { heading: "Contact info", to: { name: "services-show-contact-info" } },
         { heading: "Who is it for?", to: { name: "services-show-who-for" } },
-        { heading: "Locations", to: { name: "services-show-locations" } },
-        { heading: "Referral", to: { name: "services-show-referral" } }
+        { heading: "Locations", to: { name: "services-show-locations" } }
       ]
     };
   },

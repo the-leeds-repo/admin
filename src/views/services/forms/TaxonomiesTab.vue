@@ -17,6 +17,7 @@
         <category-taxonomy-input
           :value="category_taxonomies"
           @input="$emit('update:category_taxonomies', $event)"
+          @clear="$emit('clear', 'category_taxonomies')"
           :error="errors.get('category_taxonomies')"
           :disabled="!isGlobalAdmin"
           :invalid="errors.has('category_taxonomies')"

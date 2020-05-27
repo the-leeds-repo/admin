@@ -14,20 +14,13 @@
 
         <gov-section-break size="l" />
 
-        <gov-form-group :invalid="errors.has('category_taxonomies')">
-          <category-taxonomy-input
-            :value="category_taxonomies"
-            @input="$emit('update:category_taxonomies', $event)"
-            :error="errors.get('category_taxonomies')"
-            @clear="$emit('clear', 'category_taxonomies')"
-            :disabled="!isGlobalAdmin"
-          />
-          <gov-error-message
-            v-if="errors.has('category_taxonomies')"
-            v-text="errors.get('category_taxonomies')"
-            :for="category_taxonomies"
-          />
-        </gov-form-group>
+        <category-taxonomy-input
+          :value="category_taxonomies"
+          @input="$emit('update:category_taxonomies', $event)"
+          :error="errors.get('category_taxonomies')"
+          :disabled="!isGlobalAdmin"
+          :invalid="errors.has('category_taxonomies')"
+        />
 
         <slot />
 

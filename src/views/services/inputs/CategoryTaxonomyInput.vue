@@ -1,7 +1,6 @@
 <template>
   <ck-loader v-if="loading" />
 
-  <!-- Level: 1 -->
   <gov-form-group v-else>
     <vue-treeselect
       :value="value"
@@ -12,6 +11,7 @@
       :multiple="true"
       placeholder="Select associated taxonomies..."
       sort-value-by="INDEX"
+      :disabled="disabled"
     />
 
     <gov-error-message
@@ -20,13 +20,11 @@
       for="category_taxonomies"
     />
   </gov-form-group>
-  <!-- /Level: 1 -->
 </template>
 
 <script>
 import http from "@/http";
-import VueTreeselect from '@riophae/vue-treeselect'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import VueTreeselect from "@riophae/vue-treeselect";
 
 export default {
   name: "CategoryTaxonomyInput",
@@ -78,6 +76,7 @@ export default {
     },
     onInput(taxonomyIds) {
       this.$emit('input', taxonomyIds);
+      this.$emit('clear')
     }
   },
   created() {
@@ -85,3 +84,10 @@ export default {
   }
 };
 </script>
+
+<style lang="scss">
+@import url("~@riophae/vue-treeselect/dist/vue-treeselect.css");
+.vue-treeselect {
+  font-family: nta, Arial, sans-serif !important,
+}
+</style>

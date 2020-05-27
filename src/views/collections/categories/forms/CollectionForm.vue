@@ -60,7 +60,6 @@
       @input="$emit('update:category_taxonomies', $event)"
       :error="errors.get('category_taxonomies')"
       @clear="$emit('clear', 'category_taxonomies')"
-      :hierarchy="false"
     />
 
   </div>

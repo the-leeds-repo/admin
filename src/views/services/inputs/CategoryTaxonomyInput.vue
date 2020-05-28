@@ -1,94 +1,18 @@
 <template>
   <ck-loader v-if="loading" />
 
-  <!-- Level: 1 -->
   <gov-form-group v-else>
-    <gov-checkboxes :invalid="error">
-      <gov-checkbox
-        v-for="taxonomy in taxonomies" :key="taxonomy.id"
-        :value="value.includes(taxonomy.id)"
-        @input="onInput({ taxonomy, enabled: $event })"
-        :id="taxonomy.id"
-        :name="taxonomy.id"
-        :label="taxonomy.name"
-        :disabled="disabled"
-      >
-
-        <!-- Level: 2 -->
-        <gov-checkbox
-          class="govuk-checkboxes__item--nested"
-          v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
-          :value="value.includes(taxonomy.id)"
-          @input="onInput({ taxonomy, enabled: $event })"
-          :id="taxonomy.id"
-          :name="taxonomy.id"
-          :label="taxonomy.name"
-          :disabled="disabled"
-        >
-
-          <!-- Level: 3 -->
-          <gov-checkbox
-            class="govuk-checkboxes__item--nested"
-            v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
-            :value="value.includes(taxonomy.id)"
-            @input="onInput({ taxonomy, enabled: $event })"
-            :id="taxonomy.id"
-            :name="taxonomy.id"
-            :label="taxonomy.name"
-            :disabled="disabled"
-          >
-
-            <!-- Level: 4 -->
-            <gov-checkbox
-              class="govuk-checkboxes__item--nested"
-              v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
-              :value="value.includes(taxonomy.id)"
-              @input="onInput({ taxonomy, enabled: $event })"
-              :id="taxonomy.id"
-              :name="taxonomy.id"
-              :label="taxonomy.name"
-              :disabled="disabled"
-            >
-
-              <!-- Level: 5 -->
-              <gov-checkbox
-                class="govuk-checkboxes__item--nested"
-                v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
-                :value="value.includes(taxonomy.id)"
-                @input="onInput({ taxonomy, enabled: $event })"
-                :id="taxonomy.id"
-                :name="taxonomy.id"
-                :label="taxonomy.name"
-                :disabled="disabled"
-              >
-
-                <!-- Level: 6 -->
-                <gov-checkbox
-                  class="govuk-checkboxes__item--nested"
-                  v-for="taxonomy in taxonomy.children" :key="taxonomy.id"
-                  :value="value.includes(taxonomy.id)"
-                  @input="onInput({ taxonomy, enabled: $event })"
-                  :id="taxonomy.id"
-                  :name="taxonomy.id"
-                  :label="taxonomy.name"
-                  :disabled="disabled"
-                />
-                <!-- /Level: 6 -->
-
-              </gov-checkbox>
-              <!-- /Level: 5 -->
-
-            </gov-checkbox>
-            <!-- /Level: 4 -->
-
-          </gov-checkbox>
-          <!-- /Level: 3 -->
-
-        </gov-checkbox>
-        <!-- /Level: 2 -->
-
-      </gov-checkbox>
-    </gov-checkboxes>
+    <vue-treeselect
+      :value="value"
+      @input="onInput"
+      :options="taxonomies"
+      value-consists-of="ALL_WITH_INDETERMINATE"
+      :normalizer="normalizer"
+      :multiple="true"
+      placeholder="Select associated taxonomies..."
+      sort-value-by="INDEX"
+      :disabled="disabled"
+    />
 
     <gov-error-message
       v-if="error"
@@ -96,14 +20,17 @@
       for="category_taxonomies"
     />
   </gov-form-group>
-  <!-- /Level: 1 -->
 </template>
 
 <script>
 import http from "@/http";
+import VueTreeselect from "@riophae/vue-treeselect";
 
 export default {
   name: "CategoryTaxonomyInput",
+  components: {
+    VueTreeselect
+  },
   props: {
     value: {
       required: true,
@@ -116,85 +43,51 @@ export default {
       required: false,
       type: Boolean,
       default: false
-    },
-    hierarchy: {
-      required: false,
-      type: Boolean,
-      default: true
     }
   },
   data() {
     return {
       taxonomies: [],
-      flattenedTaxonomies: [],
-      loading: false,
-      enabledTaxonomies: []
+      loading: false
     };
   },
   methods: {
     async fetchTaxonomies() {
       this.loading = true;
-      const { data } = await http.get("/taxonomies/categories");
-      this.taxonomies = data.data;
-      this.setFlattenedTaxonomies();
+      const { data: { data: taxonomies } } = await http.get("/taxonomies/categories");
+      this.taxonomies = taxonomies.map(child => this.removeEmptyChildren(child));
       this.loading = false;
     },
-    setFlattenedTaxonomies(taxonomies = null) {
-      if (taxonomies === null) {
-        this.flattenedTaxonomies = [];
-        taxonomies = this.taxonomies;
-      }
-
-      taxonomies.forEach(taxonomy => {
-        this.flattenedTaxonomies.push(taxonomy);
-
-        if (taxonomy.children.length > 0) {
-          this.setFlattenedTaxonomies(taxonomy.children);
-        }
-      });
-    },
-    onInput({ taxonomy, enabled }) {
-      if (enabled) {
-        this.onChecked(taxonomy);
+    removeEmptyChildren(taxonomy) {
+      if (taxonomy.children.length === 0) {
+        delete taxonomy.children;
       } else {
-        this.onUnchecked(taxonomy);
+        taxonomy.children.map(child => this.removeEmptyChildren(child))
       }
 
-      this.$emit("input", this.enabledTaxonomies);
-      this.$emit("clear");
+      return taxonomy
     },
-    onChecked(taxonomy) {
-      if (!this.enabledTaxonomies.includes(taxonomy.id)) {
-        this.enabledTaxonomies.push(taxonomy.id);
-
-        if (this.hierarchy) {
-          if (taxonomy.parent_id !== null) {
-            const parent = this.flattenedTaxonomies.find(flattenedTaxonomy => {
-              return flattenedTaxonomy.id === taxonomy.parent_id;
-            });
-            this.onInput({ taxonomy: parent, enabled: true });
-          }
-        }
+    normalizer({ id, name, children }) {
+      return {
+        id,
+        label: name,
+        children
       }
     },
-    onUnchecked(taxonomy) {
-      if (this.enabledTaxonomies.includes(taxonomy.id)) {
-        const index = this.enabledTaxonomies.indexOf(taxonomy.id);
-        this.enabledTaxonomies.splice(index, 1);
-
-        if (this.hierarchy) {
-          if (taxonomy.children.length > 0) {
-            taxonomy.children.forEach(taxonomy =>
-              this.onInput({ taxonomy, enabled: false })
-            );
-          }
-        }
-      }
+    onInput(taxonomyIds) {
+      this.$emit('input', taxonomyIds);
+      this.$emit('clear')
     }
   },
   created() {
     this.fetchTaxonomies();
-    this.enabledTaxonomies = this.value;
   }
 };
 </script>
+
+<style lang="scss">
+@import url("~@riophae/vue-treeselect/dist/vue-treeselect.css");
+.vue-treeselect {
+  font-family: nta, Arial, sans-serif !important,
+}
+</style>

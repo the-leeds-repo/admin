@@ -29,7 +29,7 @@
             </gov-list>
           </gov-error-summary>
 
-          <gov-tabs @tab-changed="onTabChange" :tabs="allowedTabs" no-router>
+          <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
               v-show="isTabActive('details')"
@@ -99,7 +99,6 @@
               v-if="isTabActive('taxonomies')"
               @clear="form.$errors.clear($event); errors = {}"
               :errors="form.$errors"
-              :is-global-admin="auth.isGlobalAdmin"
               :type="form.type"
               :category_taxonomies.sync="form.category_taxonomies"
             >
@@ -207,21 +206,6 @@ export default {
       ]
     };
   },
-  computed: {
-    allowedTabs() {
-      if (!this.auth.isGlobalAdmin) {
-        const taxonomiesTabIndex = this.tabs.findIndex(
-          tab => tab.id === "taxonomies"
-        );
-        const tabs = this.tabs.slice();
-        tabs.splice(taxonomiesTabIndex, 1);
-
-        return tabs;
-      }
-
-      return this.tabs;
-    }
-  },
   methods: {
     async onSubmit() {
       const data = await this.form.post("/services", (config, data) => {
@@ -251,15 +235,15 @@ export default {
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));
-      const tabId = this.allowedTabs[index].id;
+      const tabId = this.tabs[index].id;
       this.tabs.find(tab => tab.id === tabId).active = true;
     },
     onNext() {
-      const currentTabIndex = this.allowedTabs.findIndex(
+      const currentTabIndex = this.tabs.findIndex(
         tab => tab.active === true
       );
       this.tabs.forEach(tab => (tab.active = false));
-      const newTabId = this.allowedTabs[currentTabIndex + 1].id;
+      const newTabId = this.tabs[currentTabIndex + 1].id;
       this.tabs.find(tab => tab.id === newTabId).active = true;
       this.scrollToTop();
     },
@@ -267,7 +251,7 @@ export default {
       document.getElementById("main-content").scrollIntoView();
     },
     isTabActive(id) {
-      const tab = this.allowedTabs.find(tab => tab.id === id);
+      const tab = this.tabs.find(tab => tab.id === id);
 
       return tab === undefined ? false : tab.active;
     }

@@ -19,7 +19,6 @@
           @input="$emit('update:category_taxonomies', $event)"
           @clear="$emit('clear', 'category_taxonomies')"
           :error="errors.get('category_taxonomies')"
-          :disabled="!isGlobalAdmin"
           :invalid="errors.has('category_taxonomies')"
         />
 
@@ -37,9 +36,6 @@ export default {
   components: { CategoryTaxonomyInput },
   props: {
     errors: {
-      required: true
-    },
-    isGlobalAdmin: {
       required: true
     },
     type: {

@@ -12,22 +12,38 @@
           <gov-heading size="xl">Add a new Service Page</gov-heading>
 
           <gov-body>
-            You’re about to add a service/club/activity/group to {{ appName }}.
-            Here are some things you should know:
+            Mandatory information will include, but not be limited to
+          </gov-body>
+
+          <gov-list bullet>
+            <li>Name of service</li>
+            <li>Location</li>
+            <li>Logo</li>
+            <li>Website</li>
+            <li>Accessibility to the service</li>
+            <li>Contact details</li>
+            <li>Information on who's the service for</li>
+          </gov-list>
+
+          <gov-body>
+            At the end of this process, you will be able to click "submit". If
+            any of the mandatory fields are left blank, these will flag as
+            errors.
+          </gov-body>
+
+          <gov-body>
+            Mandatory information is needed to complete the process. However, if
+            you later find out any other optional information that you think
+            important, don't worry: you can edit services after adding them.
           </gov-body>
 
           <gov-list bullet>
             <li>
-              You will be asked to provide information a customer would want to
-              know about your service - make sure you have it to hand
+              Once you've added a service, this will need to be approved by an
+              admin before it is live on the platform
             </li>
             <li>
-              You can add as many services as you want - so please split your
-              services into multiple pages as appropriate
-            </li>
-            <li>
-              When you are finished your page will be sent to the admin team for
-              approval
+              You can edit the service afterwards
             </li>
           </gov-list>
 

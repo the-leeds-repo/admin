@@ -33,7 +33,7 @@
 
             <details-tab
               v-show="isTabActive('details')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :is-new="true"
               :name.sync="form.name"
@@ -51,7 +51,7 @@
 
             <additional-info-tab
               v-if="isTabActive('additional-info')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :wait_time.sync="form.wait_time"
@@ -70,7 +70,7 @@
 
             <useful-info-tab
               v-if="isTabActive('useful-info')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :useful_infos.sync="form.useful_infos"
@@ -80,7 +80,7 @@
 
             <who-for-tab
               v-if="isTabActive('who-for')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :age_group.sync="form.criteria.age_group"
@@ -97,7 +97,7 @@
 
             <taxonomies-tab
               v-if="isTabActive('taxonomies')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :category_taxonomies.sync="form.category_taxonomies"
@@ -107,7 +107,7 @@
 
             <description-tab
               v-if="isTabActive('description')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :intro.sync="form.intro"
@@ -119,7 +119,7 @@
 
             <location-tab
               v-if="isTabActive('location')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
             >
               <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
@@ -205,7 +205,6 @@ export default {
         category_taxonomies: [],
         logo_file_id: null
       }),
-      errors: {},
       tabs: [
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },

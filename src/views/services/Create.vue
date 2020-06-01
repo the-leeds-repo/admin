@@ -114,10 +114,18 @@
               :offerings.sync="form.offerings"
               :description.sync="form.description"
             >
+              <gov-button @click="onNext" start>Next</gov-button>
+            </description-tab>
+
+            <location-tab
+              v-if="isTabActive('location')"
+              @clear="form.$errors.clear($event); errors = {}"
+              :errors="form.$errors"
+            >
               <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
               <ck-submit-error v-if="form.$errors.any()" />
-            </description-tab>
+            </location-tab>
 
           </gov-tabs>
         </gov-grid-column>
@@ -134,6 +142,7 @@ import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
+import LocationTab from "@/views/services/forms/LocationTab";
 
 export default {
   name: "CreateService",
@@ -143,7 +152,8 @@ export default {
     AdditionalInfoTab,
     UsefulInfoTab,
     WhoForTab,
-    TaxonomiesTab
+    TaxonomiesTab,
+    LocationTab
   },
   data() {
     return {
@@ -202,7 +212,8 @@ export default {
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
-        { id: "description", heading: "Description", active: false }
+        { id: "description", heading: "Description", active: false },
+        { id: "location", heading: "Location", active: false }
       ]
     };
   },

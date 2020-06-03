@@ -119,6 +119,7 @@
 
             <location-tab
               v-if="isTabActive('location')"
+              :add_location.sync="addLocation"
               :service_location_errors="serviceLocationForm.$errors"
               :location_errors="locationForm.$errors"
               :location_id.sync="serviceLocationForm.location_id"
@@ -248,7 +249,8 @@ export default {
         { id: "taxonomies", heading: "Taxonomies", active: false },
         { id: "description", heading: "Description", active: false },
         { id: "location", heading: "Location", active: false }
-      ]
+      ],
+      addLocation: false
     };
   },
   methods: {

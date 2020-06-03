@@ -4,11 +4,23 @@
     <gov-grid-row>
       <gov-grid-column width="one-half">
 
-        <gov-body>Location details.</gov-body>
+        <gov-body>Specify the location details for this service below. You can add always add the location details after creating the service.</gov-body>
+        <gov-body>If you want to add multiple locations, you will need to do this after the service has been created.</gov-body>
 
         <gov-section-break size="l" />
 
+        <ck-radio-input
+          :value="add_location"
+          @input="$emit('update:add_location', $event)"
+          id="add_location"
+          label="Add location"
+          hint="Do you want to add a location for this service?"
+          :options="addLocationOptions"
+          :error="null"
+        />
+
         <ck-service-location-form
+          v-if="add_location"
           :errors="service_location_errors"
           :location-errors="location_errors"
           :location_type.sync="locationType"
@@ -59,6 +71,9 @@ export default {
     CkServiceLocationForm
   },
   props: {
+    add_location: {
+      required: true
+    },
     service_location_errors: {
       required: true
     },
@@ -107,7 +122,11 @@ export default {
   },
   data() {
     return {
-      locationType: null
+      locationType: null,
+      addLocationOptions: [
+        { value: true, label: "Yes" },
+        { value: false, label: "No" }
+      ]
     }
   },
   methods: {

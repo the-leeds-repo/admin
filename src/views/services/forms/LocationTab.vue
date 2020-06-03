@@ -23,7 +23,7 @@
           v-if="add_location"
           :errors="service_location_errors"
           :location-errors="location_errors"
-          :location_type.sync="locationType"
+          :location_type="location_type"
           :location_id="location_id"
           :name="name"
           :address_line_1="address_line_1"
@@ -37,6 +37,7 @@
           :has_wheelchair_access="has_wheelchair_access"
           :regular_opening_hours="regular_opening_hours"
           :holiday_opening_hours="holiday_opening_hours"
+          @update:location_type="onInput({ field: 'location_type', value: $event })"
           @update:location_id="onInput({ field: 'location_id', value: $event })"
           @update:name="onInput({ field: 'name', value: $event })"
           @update:address_line_1="onInput({ field: 'address_line_1', value: $event })"
@@ -72,6 +73,9 @@ export default {
   },
   props: {
     add_location: {
+      required: true
+    },
+    location_type: {
       required: true
     },
     service_location_errors: {

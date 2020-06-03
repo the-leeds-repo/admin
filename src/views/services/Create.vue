@@ -120,6 +120,7 @@
             <location-tab
               v-if="isTabActive('location')"
               :add_location.sync="addLocation"
+              :location_type.sync="locationType"
               :service_location_errors="serviceLocationForm.$errors"
               :location_errors="locationForm.$errors"
               :location_id.sync="serviceLocationForm.location_id"
@@ -250,35 +251,54 @@ export default {
         { id: "description", heading: "Description", active: false },
         { id: "location", heading: "Location", active: false }
       ],
-      addLocation: false
+      addLocation: false,
+      locationType: null
     };
   },
   methods: {
     async onSubmit() {
-      const data = await this.form.post("/services", (config, data) => {
-        // Append time to end date (set to morning).
-        if (data.ends_at !== "") {
-          data.ends_at = `${data.ends_at}T00:00:00+0000`;
+      try {
+        // Validate all forms before submitting.
+        await this.form.post("/services", (config, data) => {
+          data.validate_only = true;
+        });
+        if (this.addLocation) {
+          await this.locationForm.post("/locations", (config, data) => {
+            data.validate_only = true;
+          });
+
+          await this.serviceLocationForm.post("/service-locations", (config, data) => {
+            data.validate_only = true;
+          });
         }
 
-        // Remove useful info if only item and empty.
-        if (
-          data.useful_infos.length === 1 &&
-          data.useful_infos[0].title === "" &&
-          data.useful_infos[0].description === ""
-        ) {
-          data.useful_infos = [];
-        }
-      });
-      const serviceId = data.data.id;
+        const data = await this.form.post("/services", (config, data) => {
+          // Append time to end date (set to morning).
+          if (data.ends_at !== "") {
+            data.ends_at = `${data.ends_at}T00:00:00+0000`;
+          }
 
-      // Refetch the user as new permissions added for the new service.
-      await this.auth.fetchUser();
+          // Remove useful info if only item and empty.
+          if (
+            data.useful_infos.length === 1 &&
+            data.useful_infos[0].title === "" &&
+            data.useful_infos[0].description === ""
+          ) {
+            data.useful_infos = [];
+          }
+        });
+        const serviceId = data.data.id;
 
-      this.$router.push({
-        name: "services-post-create",
-        params: { service: serviceId }
-      });
+        // Refetch the user as new permissions added for the new service.
+        await this.auth.fetchUser();
+
+        this.$router.push({
+          name: "services-post-create",
+          params: { service: serviceId }
+        });
+      } catch (e) {
+        // Do nothing.
+      }
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));

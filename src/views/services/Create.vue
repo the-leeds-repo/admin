@@ -119,8 +119,23 @@
 
             <location-tab
               v-if="isTabActive('location')"
-              @clear="form.$errors.clear($event)"
-              :errors="form.$errors"
+              :service_location_errors="serviceLocationForm.$errors"
+              :location_errors="locationForm.$errors"
+              :location_id.sync="serviceLocationForm.location_id"
+              :name.sync="serviceLocationForm.name"
+              :address_line_1.sync="locationForm.address_line_1"
+              :address_line_2.sync="locationForm.address_line_2"
+              :address_line_3.sync="locationForm.address_line_3"
+              :city.sync="locationForm.city"
+              :county.sync="locationForm.county"
+              :postcode.sync="locationForm.postcode"
+              :country.sync="locationForm.country"
+              :has_induction_loop.sync="locationForm.has_induction_loop"
+              :has_wheelchair_access.sync="locationForm.has_wheelchair_access"
+              :regular_opening_hours.sync="serviceLocationForm.regular_opening_hours"
+              :holiday_opening_hours.sync="serviceLocationForm.holiday_opening_hours"
+              @service-location-clear="serviceLocationForm.$errors.clear($event)"
+              @location-clear="locationForm.$errors.clear($event)"
             >
               <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
@@ -204,6 +219,26 @@ export default {
         gallery_items: [],
         category_taxonomies: [],
         logo_file_id: null
+      }),
+      locationForm: new Form({
+        address_line_1: "",
+        address_line_2: "",
+        address_line_3: "",
+        city: "",
+        county: "",
+        postcode: "",
+        country: "United Kingdom",
+        accessibility_info: "",
+        has_wheelchair_access: false,
+        has_induction_loop: false
+      }),
+      serviceLocationForm: new Form({
+        service_id: null,
+        location_id: null,
+        name: "",
+        regular_opening_hours: [],
+        holiday_opening_hours: [],
+        image_file_id: null
       }),
       tabs: [
         { id: "details", heading: "Details", active: true },

@@ -95,6 +95,14 @@ export default {
       try {
         this.submitting = true;
 
+        // Validate both forms before submitting.
+        await this.locationForm.post("/locations", (config, data) => {
+          data.validate_only = true;
+        });
+        await this.form.post("/service-locations", (config, data) => {
+          data.validate_only = true;
+        });
+
         // Post the location if new.
         if (this.location_type === "new") {
           const { data: location } = await this.locationForm.post("/locations");

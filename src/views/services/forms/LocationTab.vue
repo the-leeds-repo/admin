@@ -52,8 +52,8 @@
           @update:regular_opening_hours="onInput({ field: 'regular_opening_hours', value: $event })"
           @update:holiday_opening_hours="onInput({ field: 'holiday_opening_hours', value: $event })"
           @update:image_file_id="onInput({ field: 'image_file_id', value: $event })"
-          @clear="onLocationClear"
-          @clear-location="onServiceLocationClear"
+          @clear="onLocationClear($event)"
+          @clear-location="onServiceLocationClear($event)"
         />
 
         <slot />

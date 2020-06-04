@@ -23,9 +23,11 @@
 
           <gov-heading size="m">Add service</gov-heading>
 
-          <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
+          <gov-error-summary v-if="anyErrors" title="Check for errors">
             <gov-list>
               <li v-for="(error, field) in form.$errors.all()" :key="field" v-text="error[0]" />
+              <li v-for="(error, field) in locationForm.$errors.all()" :key="field" v-text="error[0]" />
+              <li v-for="(error, field) in serviceLocationForm.$errors.all()" :key="field" v-text="error[0]" />
             </gov-list>
           </gov-error-summary>
 
@@ -139,7 +141,7 @@
               @service-location-clear="serviceLocationForm.$errors.clear($event)"
               @location-clear="locationForm.$errors.clear($event)"
             >
-              <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+              <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
               <ck-submit-error v-if="form.$errors.any()" />
             </location-tab>
@@ -261,18 +263,7 @@ export default {
         // Validate all forms before submitting.
         await this.form.post("/services", (config, data) => {
           data.validate_only = true;
-        });
-        if (this.addLocation) {
-          await this.locationForm.post("/locations", (config, data) => {
-            data.validate_only = true;
-          });
 
-          await this.serviceLocationForm.post("/service-locations", (config, data) => {
-            data.validate_only = true;
-          });
-        }
-
-        const data = await this.form.post("/services", (config, data) => {
           // Append time to end date (set to morning).
           if (data.ends_at !== "") {
             data.ends_at = `${data.ends_at}T00:00:00+0000`;
@@ -287,7 +278,53 @@ export default {
             data.useful_infos = [];
           }
         });
-        const serviceId = data.data.id;
+        if (this.addLocation && this.locationType === "new") {
+          await this.locationForm.post("/locations", (config, data) => {
+            data.validate_only = true;
+          });
+        }
+        if (this.addLocation) {
+          try {
+            await this.serviceLocationForm.post("/service-locations", (config, data) => {
+              data.validate_only = true;
+            });
+          } catch (exception) {
+            if (Object.keys(exception.errors).length !== 2) {
+              throw exception;
+            }
+
+            if (!exception.errors.hasOwnProperty('location_id')) {
+              throw exception;
+            }
+
+            if (!exception.errors.hasOwnProperty('service_id')) {
+              throw exception;
+            }
+          }
+        }
+
+        const { data: { id: serviceId } } = await this.form.post("/services", (config, data) => {
+          // Append time to end date (set to morning).
+          if (data.ends_at !== "") {
+            data.ends_at = `${data.ends_at}T00:00:00+0000`;
+          }
+
+          // Remove useful info if only item and empty.
+          if (
+            data.useful_infos.length === 1 &&
+            data.useful_infos[0].title === "" &&
+            data.useful_infos[0].description === ""
+          ) {
+            data.useful_infos = [];
+          }
+        });
+
+        const { data: { id: locationId } } = await this.locationForm.post("/locations");
+
+        await this.serviceLocationForm.post("/service-locations", (config, data) => {
+          data.service_id = serviceId;
+          data.location_id = locationId;
+        });
 
         // Refetch the user as new permissions added for the new service.
         await this.auth.fetchUser();
@@ -321,6 +358,14 @@ export default {
       const tab = this.tabs.find(tab => tab.id === id);
 
       return tab === undefined ? false : tab.active;
+    }
+  },
+  computed: {
+    submitting() {
+      return this.form.$submitting || this.locationForm.$submitting || this.serviceLocationForm.$submitting;
+    },
+    anyErrors() {
+      return this.form.$errors.any() || this.locationForm.$errors.any() || this.serviceLocationForm.$errors.any();
     }
   }
 };

@@ -45,6 +45,7 @@
               { heading: 'Service name', sort: 'name', render: (service) => service.name },
               { heading: 'Organisation', sort: 'organisation_name', render: (service) => service.organisation.name },
               { heading: 'Status', render: (service) => displayStatus(service.status) },
+              { heading: 'Freshness', sort: 'last_modified_at', render: (service) => displayFreshness(service.last_modified_at) },
             ]"
             :view-route="(service) => {
               return {
@@ -120,9 +121,49 @@ export default {
           return status;
       }
     },
+    displayFreshness(lastModifiedAt) {
+      const start = this.moment(lastModifiedAt, this.moment.ISO_8601);
+      const end = this.moment();
+      const difference = end.diff(start, "months");
+      let title = `last updated ${difference} months ago`;
+
+      if (difference === 0) {
+        title = 'last updated this month';
+      } else if (difference === 1) {
+        title = 'last updated a month ago';
+      }
+
+      if (difference >= 6) {
+        return `<div class="app-freshness app-freshness--old" title="Old (${title})"></div>`;
+      } else if (difference >= 3) {
+        return `<div class="app-freshness app-freshness--stale" title="Stale (${title})"></div>`;
+      }
+
+      return `<div class="app-freshness app-freshness--fresh" title="Fresh (${title})"></div>`;
+    },
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);
     }
   }
 };
 </script>
+
+<style lang="scss">
+.app-freshness {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 100%;
+
+  &.app-freshness--old {
+    background-color: red;
+  }
+
+  &.app-freshness--stale {
+    background-color: orange;
+  }
+
+  &.app-freshness--fresh {
+    background-color: green;
+  }
+}
+</style>

@@ -289,17 +289,11 @@ export default {
               data.validate_only = true;
             });
           } catch (exception) {
-            if (Object.keys(exception.errors).length !== 2) {
-              throw exception;
-            }
-
-            if (!exception.errors.hasOwnProperty('location_id')) {
-              throw exception;
-            }
-
-            if (!exception.errors.hasOwnProperty('service_id')) {
-              throw exception;
-            }
+            Object.keys(exception.errors).forEach((field) => {
+              if (!['location_id', 'service_id'].includes(field)) {
+                throw exception;
+              }
+            })
           }
         }
 
@@ -319,18 +313,28 @@ export default {
           }
         });
 
-        const { data: { id: locationId } } = await this.locationForm.post("/locations");
+        let locationId = null;
 
-        await this.serviceLocationForm.post("/service-locations", (config, data) => {
-          data.service_id = serviceId;
-          data.location_id = locationId;
-        });
+        if (this.addLocation && this.locationType === "new") {
+          const { data: { id } } = await this.locationForm.post("/locations");
+          locationId = id;
+        }
+
+        if (this.addLocation) {
+          await this.serviceLocationForm.post("/service-locations", (config, data) => {
+            data.service_id = serviceId;
+
+            if (locationId !== null) {
+              data.location_id = locationId;
+            }
+          });
+        }
 
         // Refetch the user as new permissions added for the new service.
         await this.auth.fetchUser();
 
         this.$router.push({
-          name: "services-post-create",
+          name: "services-show",
           params: { service: serviceId }
         });
       } catch (e) {

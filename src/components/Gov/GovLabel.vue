@@ -1,11 +1,19 @@
 <template>
   <label class="govuk-label">
-    <slot />
+    <slot /><template v-if="!optional">*</template>
   </label>
 </template>
 
 <script>
 export default {
-  name: "GovLabel"
+  name: "GovLabel",
+
+  props: {
+    optional: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  }
 };
 </script>

@@ -8,7 +8,7 @@
       <gov-grid-column width="two-thirds">
         <ck-table-filters @search="onSearch" hide-extra>
           <gov-form-group>
-            <gov-label for="filter[url]">Page URL</gov-label>
+            <gov-label for="filter[url]" optional>Page URL</gov-label>
             <gov-input v-model="filters.url" id="filter[url]" name="filter[url]" type="search"/>
           </gov-form-group>
         </ck-table-filters>

@@ -76,6 +76,7 @@
           :label="`Upload your ${type} logo`"
           accept="image/x-png"
           :existing-url="id ? apiUrl(`/services/${id}/logo.png?v=${now}`) : undefined"
+          optional
         >
           <template slot="hint">
             <gov-hint for="logo">

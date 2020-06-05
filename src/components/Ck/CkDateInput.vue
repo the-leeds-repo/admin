@@ -1,6 +1,6 @@
 <template>
   <gov-form-group :invalid="error !== null">
-    <gov-label :for="id" class="govuk-!-font-weight-bold">
+    <gov-label :for="id" class="govuk-!-font-weight-bold" :optional="optional">
       <slot name="label">{{ label }}</slot>
     </gov-label>
 
@@ -60,6 +60,12 @@ export default {
     disabled: {
       required: false,
       type: Boolean,
+      default: false
+    },
+
+    optional: {
+      type: Boolean,
+      required: false,
       default: false
     }
   }

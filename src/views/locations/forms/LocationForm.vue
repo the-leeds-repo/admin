@@ -17,6 +17,7 @@
       label="Address Line 2"
       type="text"
       :error="errors.get('address_line_2')"
+      optional
     />
 
     <ck-text-input
@@ -26,6 +27,7 @@
       label="Address Line 3"
       type="text"
       :error="errors.get('address_line_3')"
+      optional
     />
 
     <ck-text-input
@@ -108,6 +110,7 @@
       label="Location image"
       accept="image/x-png"
       :existing-url="id ? apiUrl(`/locations/${id}/image.png?v=${now}`) : undefined"
+      optional
     />
 
   </div>

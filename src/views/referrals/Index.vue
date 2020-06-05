@@ -12,23 +12,23 @@
             <gov-grid-column width="two-thirds">
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
-                  <gov-label for="filter[reference]">Reference no.</gov-label>
+                  <gov-label for="filter[reference]" optional>Reference no.</gov-label>
                   <gov-input v-model="filters.reference" id="filter[reference]" name="filter[reference]" type="search"/>
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
-                    <gov-label for="filter[service_name]">Service name</gov-label>
+                    <gov-label for="filter[service_name]" optional>Service name</gov-label>
                     <gov-input v-model="filters.service_name" id="filter[service_name]" name="filter[service_name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[organisation_name]">Organisation name</gov-label>
+                    <gov-label for="filter[organisation_name]" optional>Organisation name</gov-label>
                     <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[status]">Status</gov-label>
+                    <gov-label for="filter[status]" optional>Status</gov-label>
                     <gov-checkboxes>
                       <gov-checkbox
                         v-for="status in filters.status"

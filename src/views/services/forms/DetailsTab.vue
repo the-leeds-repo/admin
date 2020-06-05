@@ -100,14 +100,24 @@
           v-if="auth.isGlobalAdmin"
         />
 
-        <ck-date-input
-          id="ends_at"
-          :value="ends_at"
-          @input="$emit('update:ends_at', $event); $emit('clear', 'ends_at')"
-          :error="errors.get('ends_at')"
-          label="End date"
-          :hint="`The date which this ${type} should be made inactive`"
+        <ck-radio-input
+          v-model="hasEndDate"
+          id="has_end_date"
+          label="Does this service have an end date?"
+          :options="hasEndDateOptions"
+          :error="null"
         />
+
+        <gov-inset-text v-if="hasEndDate">
+          <ck-date-input
+            id="ends_at"
+            :value="ends_at"
+            @input="$emit('update:ends_at', $event); $emit('clear', 'ends_at')"
+            :error="errors.get('ends_at')"
+            label="End date"
+            :hint="`The date which this ${type} should be made inactive`"
+          />
+        </gov-inset-text>
 
         <template v-if="false">
           <gov-heading size="m">Gallery items</gov-heading>
@@ -190,6 +200,11 @@ export default {
       statusOptions: [
         { label: "Enabled", value: "active" },
         { label: "Disabled", value: "inactive" }
+      ],
+      hasEndDate: false,
+      hasEndDateOptions: [
+        { label: "Yes", value: true },
+        { label: "No", value: false }
       ]
     };
   },
@@ -199,6 +214,13 @@ export default {
       const subject = "Help uploading service logo";
 
       return `mailto:${to}?subject=${encodeURIComponent(subject)}`;
+    }
+  },
+  watch: {
+    hasEndDate(hasEndDate) {
+      if (hasEndDate === false) {
+        this.$emit('update:ends_at', '');
+      }
     }
   },
   methods: {
@@ -225,6 +247,7 @@ export default {
   },
   created() {
     this.fetchOrganisations();
+    this.hasEndDate = this.ends_at !== '' && this.ends_at !== null;
   }
 };
 </script>

@@ -8,24 +8,24 @@
       <gov-grid-column width="two-thirds">
         <ck-table-filters @search="onSearch">
           <gov-form-group>
-            <gov-label for="filter[action]">Action</gov-label>
+            <gov-label for="filter[action]" optional>Action</gov-label>
             <gov-select v-model="filters.action" id="filter[action]" name="filter[action]" :options="actions"/>
           </gov-form-group>
 
           <template slot="extra-filters">
             <gov-form-group>
-              <gov-label for="filter[description]">Description</gov-label>
+              <gov-label for="filter[description]" optional>Description</gov-label>
               <gov-input v-model="filters.description" id="filter[description]" name="filter[description]" type="search"/>
             </gov-form-group>
 
             <gov-form-group>
-              <gov-label for="filter[user_id]">User</gov-label>
+              <gov-label for="filter[user_id]" optional>User</gov-label>
               <ck-loader v-if="loadingUsers"/>
               <gov-select v-else v-model="filters.user_id" id="filter[user_id]" name="filter[user_id]" :options="users"/>
             </gov-form-group>
 
             <gov-form-group>
-              <gov-label for="filter[oauth_client_id]">Client</gov-label>
+              <gov-label for="filter[oauth_client_id]" optional>Client</gov-label>
               <ck-loader v-if="loadingOauthClients"/>
               <gov-select v-else v-model="filters.oauth_client_id" id="filter[oauth_client_id]" name="filter[oauth_client_id]" :options="oauthClients"/>
             </gov-form-group>

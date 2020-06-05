@@ -10,7 +10,7 @@
       :value="value"
       :disabled="disabled"
     >
-    <gov-label class="govuk-radios__label" :for="id">{{ label }}</gov-label>
+    <gov-label class="govuk-radios__label" :for="id" optional>{{ label }}</gov-label>
   </div>
 </template>
 

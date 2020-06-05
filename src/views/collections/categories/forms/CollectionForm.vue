@@ -53,7 +53,7 @@
       :errors="errors"
     />
 
-    <gov-label class="govuk-!-font-weight-bold">Taxonomies</gov-label>
+    <gov-label class="govuk-!-font-weight-bold" optional>Taxonomies</gov-label>
     <category-taxonomy-input
       :invalid="errors.has('category_taxonomies')"
       :value="category_taxonomies"

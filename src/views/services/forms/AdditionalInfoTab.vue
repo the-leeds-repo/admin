@@ -84,6 +84,7 @@
           label="Quote from a satisfied user, client, beneficiary or customer"
           :maxlength="150"
           :error="errors.get('testimonial')"
+          optional
         >
           <template slot="hint">
               <gov-hint for="testimonial">
@@ -103,6 +104,7 @@
           :label="`${$options.filters.ucfirst(type)} video`"
           type="url"
           :error="errors.get('video_embed')"
+          optional
         >
           <template slot="hint">
             <gov-hint for="video_embed">
@@ -145,6 +147,7 @@
           :hint="`Provide the contact name (First name & Surname) for this ${type}, or a generic entry if this isn’t applicable e.g. ‘Enquiries’, or ‘Helpdesk’.`"
           type="text"
           :error="errors.get('contact_name')"
+          optional
         />
 
         <ck-text-input
@@ -154,6 +157,7 @@
           label="Contact phone number"
           type="tel"
           :error="errors.get('contact_phone')"
+          optional
         >
           <template slot="hint">
             <gov-hint for="contact_phone">
@@ -176,6 +180,7 @@
           :hint="`Please provide the contact email address for the ${type}.`"
           type="email"
           :error="errors.get('contact_email')"
+          optional
         />
 
         <gov-section-break size="l" />

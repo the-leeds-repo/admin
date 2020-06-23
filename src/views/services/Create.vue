@@ -23,17 +23,19 @@
 
           <gov-heading size="m">Add service</gov-heading>
 
-          <gov-error-summary v-if="form.$errors.any()" title="Check for errors">
+          <gov-error-summary v-if="anyErrors" title="Check for errors">
             <gov-list>
               <li v-for="(error, field) in form.$errors.all()" :key="field" v-text="error[0]" />
+              <li v-for="(error, field) in locationForm.$errors.all()" :key="field" v-text="error[0]" />
+              <li v-for="(error, field) in serviceLocationForm.$errors.all()" :key="field" v-text="error[0]" />
             </gov-list>
           </gov-error-summary>
 
-          <gov-tabs @tab-changed="onTabChange" :tabs="allowedTabs" no-router>
+          <gov-tabs @tab-changed="onTabChange" :tabs="tabs" no-router>
 
             <details-tab
               v-show="isTabActive('details')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :is-new="true"
               :name.sync="form.name"
@@ -51,7 +53,7 @@
 
             <additional-info-tab
               v-if="isTabActive('additional-info')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :wait_time.sync="form.wait_time"
@@ -70,7 +72,7 @@
 
             <useful-info-tab
               v-if="isTabActive('useful-info')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :useful_infos.sync="form.useful_infos"
@@ -80,7 +82,7 @@
 
             <who-for-tab
               v-if="isTabActive('who-for')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :age_group.sync="form.criteria.age_group"
@@ -97,9 +99,8 @@
 
             <taxonomies-tab
               v-if="isTabActive('taxonomies')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
-              :is-global-admin="auth.isGlobalAdmin"
               :type="form.type"
               :category_taxonomies.sync="form.category_taxonomies"
             >
@@ -108,17 +109,42 @@
 
             <description-tab
               v-if="isTabActive('description')"
-              @clear="form.$errors.clear($event); errors = {}"
+              @clear="form.$errors.clear($event)"
               :errors="form.$errors"
               :type="form.type"
               :intro.sync="form.intro"
               :offerings.sync="form.offerings"
               :description.sync="form.description"
             >
-              <gov-button v-if="form.$submitting" disabled type="submit">Creating...</gov-button>
+              <gov-button @click="onNext" start>Next</gov-button>
+            </description-tab>
+
+            <location-tab
+              v-if="isTabActive('location')"
+              :add_location.sync="addLocation"
+              :location_type.sync="locationType"
+              :service_location_errors="serviceLocationForm.$errors"
+              :location_errors="locationForm.$errors"
+              :location_id.sync="serviceLocationForm.location_id"
+              :name.sync="serviceLocationForm.name"
+              :address_line_1.sync="locationForm.address_line_1"
+              :address_line_2.sync="locationForm.address_line_2"
+              :address_line_3.sync="locationForm.address_line_3"
+              :city.sync="locationForm.city"
+              :county.sync="locationForm.county"
+              :postcode.sync="locationForm.postcode"
+              :country.sync="locationForm.country"
+              :has_induction_loop.sync="locationForm.has_induction_loop"
+              :has_wheelchair_access.sync="locationForm.has_wheelchair_access"
+              :regular_opening_hours.sync="serviceLocationForm.regular_opening_hours"
+              :holiday_opening_hours.sync="serviceLocationForm.holiday_opening_hours"
+              @service-location-clear="serviceLocationForm.$errors.clear($event)"
+              @location-clear="locationForm.$errors.clear($event)"
+            >
+              <gov-button v-if="submitting" disabled type="submit">Creating...</gov-button>
               <gov-button v-else @click="onSubmit" type="submit">Create</gov-button>
               <ck-submit-error v-if="form.$errors.any()" />
-            </description-tab>
+            </location-tab>
 
           </gov-tabs>
         </gov-grid-column>
@@ -135,6 +161,7 @@ import AdditionalInfoTab from "@/views/services/forms/AdditionalInfoTab";
 import UsefulInfoTab from "@/views/services/forms/UsefulInfoTab";
 import WhoForTab from "@/views/services/forms/WhoForTab";
 import TaxonomiesTab from "@/views/services/forms/TaxonomiesTab";
+import LocationTab from "@/views/services/forms/LocationTab";
 
 export default {
   name: "CreateService",
@@ -144,7 +171,8 @@ export default {
     AdditionalInfoTab,
     UsefulInfoTab,
     WhoForTab,
-    TaxonomiesTab
+    TaxonomiesTab,
+    LocationTab
   },
   data() {
     return {
@@ -196,70 +224,134 @@ export default {
         category_taxonomies: [],
         logo_file_id: null
       }),
-      errors: {},
+      locationForm: new Form({
+        address_line_1: "",
+        address_line_2: "",
+        address_line_3: "",
+        city: "",
+        county: "",
+        postcode: "",
+        country: "United Kingdom",
+        accessibility_info: "",
+        has_wheelchair_access: false,
+        has_induction_loop: false
+      }),
+      serviceLocationForm: new Form({
+        service_id: null,
+        location_id: null,
+        name: "",
+        regular_opening_hours: [],
+        holiday_opening_hours: [],
+        image_file_id: null
+      }),
       tabs: [
         { id: "details", heading: "Details", active: true },
         { id: "additional-info", heading: "Additional info", active: false },
         { id: "useful-info", heading: "Good to know", active: false },
         { id: "who-for", heading: "Who is it for?", active: false },
         { id: "taxonomies", heading: "Taxonomies", active: false },
-        { id: "description", heading: "Description", active: false }
-      ]
+        { id: "description", heading: "Description", active: false },
+        { id: "location", heading: "Location", active: false }
+      ],
+      addLocation: false,
+      locationType: null
     };
-  },
-  computed: {
-    allowedTabs() {
-      if (!this.auth.isGlobalAdmin) {
-        const taxonomiesTabIndex = this.tabs.findIndex(
-          tab => tab.id === "taxonomies"
-        );
-        const tabs = this.tabs.slice();
-        tabs.splice(taxonomiesTabIndex, 1);
-
-        return tabs;
-      }
-
-      return this.tabs;
-    }
   },
   methods: {
     async onSubmit() {
-      const data = await this.form.post("/services", (config, data) => {
-        // Append time to end date (set to morning).
-        if (data.ends_at !== "") {
-          data.ends_at = `${data.ends_at}T00:00:00+0000`;
+      try {
+        // Validate all forms before submitting.
+        await this.form.post("/services", (config, data) => {
+          data.validate_only = true;
+
+          // Append time to end date (set to morning).
+          if (data.ends_at !== "") {
+            data.ends_at = `${data.ends_at}T00:00:00+0000`;
+          }
+
+          // Remove useful info if only item and empty.
+          if (
+            data.useful_infos.length === 1 &&
+            data.useful_infos[0].title === "" &&
+            data.useful_infos[0].description === ""
+          ) {
+            data.useful_infos = [];
+          }
+        });
+        if (this.addLocation && this.locationType === "new") {
+          await this.locationForm.post("/locations", (config, data) => {
+            data.validate_only = true;
+          });
+        }
+        if (this.addLocation) {
+          try {
+            await this.serviceLocationForm.post("/service-locations", (config, data) => {
+              data.validate_only = true;
+            });
+          } catch (exception) {
+            Object.keys(exception.errors).forEach((field) => {
+              if (!['location_id', 'service_id'].includes(field)) {
+                throw exception;
+              }
+            })
+          }
         }
 
-        // Remove useful info if only item and empty.
-        if (
-          data.useful_infos.length === 1 &&
-          data.useful_infos[0].title === "" &&
-          data.useful_infos[0].description === ""
-        ) {
-          data.useful_infos = [];
+        const { data: { id: serviceId } } = await this.form.post("/services", (config, data) => {
+          // Append time to end date (set to morning).
+          if (data.ends_at !== "") {
+            data.ends_at = `${data.ends_at}T00:00:00+0000`;
+          }
+
+          // Remove useful info if only item and empty.
+          if (
+            data.useful_infos.length === 1 &&
+            data.useful_infos[0].title === "" &&
+            data.useful_infos[0].description === ""
+          ) {
+            data.useful_infos = [];
+          }
+        });
+
+        let locationId = null;
+
+        if (this.addLocation && this.locationType === "new") {
+          const { data: { id } } = await this.locationForm.post("/locations");
+          locationId = id;
         }
-      });
-      const serviceId = data.data.id;
 
-      // Refetch the user as new permissions added for the new service.
-      await this.auth.fetchUser();
+        if (this.addLocation) {
+          await this.serviceLocationForm.post("/service-locations", (config, data) => {
+            data.service_id = serviceId;
 
-      this.$router.push({
-        name: "services-post-create",
-        params: { service: serviceId }
-      });
+            if (locationId !== null) {
+              data.location_id = locationId;
+            }
+          });
+        }
+
+        // Refetch the user as new permissions added for the new service.
+        await this.auth.fetchUser();
+
+        this.$router.push({
+          name: "services-show",
+          params: { service: serviceId }
+        });
+      } catch (e) {
+        // Do nothing.
+      }
     },
     onTabChange({ index }) {
       this.tabs.forEach(tab => (tab.active = false));
-      const tabId = this.allowedTabs[index].id;
+      const tabId = this.tabs[index].id;
       this.tabs.find(tab => tab.id === tabId).active = true;
     },
     onNext() {
-      const currentTabIndex = this.allowedTabs.findIndex(
+      const currentTabIndex = this.tabs.findIndex(
         tab => tab.active === true
       );
       this.tabs.forEach(tab => (tab.active = false));
-      const newTabId = this.allowedTabs[currentTabIndex + 1].id;
+      const newTabId = this.tabs[currentTabIndex + 1].id;
       this.tabs.find(tab => tab.id === newTabId).active = true;
       this.scrollToTop();
     },
@@ -267,9 +359,17 @@ export default {
       document.getElementById("main-content").scrollIntoView();
     },
     isTabActive(id) {
-      const tab = this.allowedTabs.find(tab => tab.id === id);
+      const tab = this.tabs.find(tab => tab.id === id);
 
       return tab === undefined ? false : tab.active;
+    }
+  },
+  computed: {
+    submitting() {
+      return this.form.$submitting || this.locationForm.$submitting || this.serviceLocationForm.$submitting;
+    },
+    anyErrors() {
+      return this.form.$errors.any() || this.locationForm.$errors.any() || this.serviceLocationForm.$errors.any();
     }
   }
 };

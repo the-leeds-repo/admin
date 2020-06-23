@@ -14,18 +14,18 @@
             <gov-grid-column width="two-thirds">
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
-                  <gov-label for="filter[address_line_1]">Address line 1</gov-label>
+                  <gov-label for="filter[address_line_1]" optional>Address line 1</gov-label>
                   <gov-input v-model="filters.address_line_1" id="filter[address_line_1]" name="filter[address_line_1]" type="search"/>
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
-                    <gov-label for="filter[city]">City</gov-label>
+                    <gov-label for="filter[city]" optional>City</gov-label>
                     <gov-input v-model="filters.city" id="filter[city]" name="filter[city]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[postcode]">Postcode</gov-label>
+                    <gov-label for="filter[postcode]" optional>Postcode</gov-label>
                     <gov-input v-model="filters.postcode" id="filter[postcode]" name="filter[postcode]" type="search"/>
                   </gov-form-group>
                 </template>

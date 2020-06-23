@@ -65,6 +65,7 @@
       label="Organisation logo"
       accept="image/x-png"
       :existing-url="id ? apiUrl(`/organisations/${id}/logo.png?v=${now}`) : undefined"
+      optional
     />
 
   </div>

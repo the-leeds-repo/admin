@@ -1,7 +1,7 @@
 <template>
   <gov-form-group :invalid="form.$errors.any()">
 
-    <gov-label :for="id" class="govuk-!-font-weight-bold">
+    <gov-label :for="id" class="govuk-!-font-weight-bold" :optional="optional">
       <slot name="label">{{ label }}</slot>
     </gov-label>
 
@@ -84,6 +84,11 @@ export default {
     private: {
       required: false,
       type: Boolean,
+      default: false
+    },
+    optional: {
+      type: Boolean,
+      required: false,
       default: false
     }
   },

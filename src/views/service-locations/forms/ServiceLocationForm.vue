@@ -7,6 +7,7 @@
       label="Name of location"
       type="text"
       :error="errors.get('name')"
+      optional
     />
 
     <template v-if="isCreateForm">
@@ -192,6 +193,7 @@
       label="Service location image"
       accept="image/x-png"
       :existing-url="id ? apiUrl(`/service-locations/${id}/image.png?v=${now}`) : undefined"
+      optional
     />
   </div>
 </template>

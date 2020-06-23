@@ -13,6 +13,7 @@
     "test:e2e": "vue-cli-service test:e2e"
   },
   "dependencies": {
+    "@riophae/vue-treeselect": "^0.4.0",
     "axios": "^0.18.0",
     "bugsnag-js": "^4.7.3",
     "bugsnag-vue": "^1.0.1",
@@ -40,7 +41,6 @@
     "@vue/test-utils": "^1.0.0-beta.20",
     "babel-core": "7.0.0-bridge.0",
     "babel-jest": "^23.0.1",
-    "vue-cli-plugin-s3-deploy": "^3.0.0",
     "vue-template-compiler": "^2.5.17"
   }
 }

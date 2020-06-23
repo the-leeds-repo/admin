@@ -13,28 +13,28 @@
             <gov-grid-column width="two-thirds">
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
-                  <gov-label for="filter[first_name]">First name</gov-label>
+                  <gov-label for="filter[first_name]" optional>First name</gov-label>
                   <gov-input v-model="filters.first_name" id="filter[first_name]" name="filter[first_name]" type="search"/>
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
-                    <gov-label for="filter[last_name]">Last name</gov-label>
+                    <gov-label for="filter[last_name]" optional>Last name</gov-label>
                     <gov-input v-model="filters.last_name" id="filter[last_name]" name="filter[last_name]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[email]">Email</gov-label>
+                    <gov-label for="filter[email]" optional>Email</gov-label>
                     <gov-input v-model="filters.email" id="filter[email]" name="filter[email]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[phone]">Phone number</gov-label>
+                    <gov-label for="filter[phone]" optional>Phone number</gov-label>
                     <gov-input v-model="filters.phone" id="filter[phone]" name="filter[phone]" type="search"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[highest_role]">Highest permission level</gov-label>
+                    <gov-label for="filter[highest_role]" optional>Highest permission level</gov-label>
                     <gov-hint id="filter[highest_role]">
                       Please note - you cannot filter by Permission Level and
                       Service/Organisation at the same time.
@@ -43,13 +43,13 @@
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[at_organisation]">Organisation</gov-label>
+                    <gov-label for="filter[at_organisation]" optional>Organisation</gov-label>
                     <ck-loader v-if="loadingOrganisations" />
                     <gov-select v-else v-model="filters.at_organisation" id="filter[at_organisation]" name="filter[at_organisation]" :options="organisations"/>
                   </gov-form-group>
 
                   <gov-form-group>
-                    <gov-label for="filter[at_service]">Service</gov-label>
+                    <gov-label for="filter[at_service]" optional>Service</gov-label>
                     <ck-loader v-if="loadingServices" />
                     <gov-select v-else v-model="filters.at_service" id="filter[at_service]" name="filter[at_service]" :options="services"/>
                   </gov-form-group>

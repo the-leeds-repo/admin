@@ -64,6 +64,7 @@
       hint="If this resource has a license, then please specify it here."
       type="text"
       :error="errors.get('license')"
+      optional
     />
 
     <ck-text-input
@@ -74,6 +75,7 @@
       hint="This will usually be the person or company who provided the resource."
       type="text"
       :error="errors.get('author')"
+      optional
     />
 
     <ck-date-input
@@ -83,6 +85,7 @@
       label="Published date"
       hint="This is the date which the resource was first published."
       :error="errors.get('published_at')"
+      optional
     />
 
     <ck-date-input
@@ -92,6 +95,7 @@
       label="Last modified date"
       hint="This is the date which the resource was last modified (since being published)."
       :error="errors.get('last_modified_at')"
+      optional
     />
 
     <gov-form-group :invalid="errors.has('category_taxonomies')">

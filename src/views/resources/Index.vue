@@ -14,13 +14,13 @@
             <gov-grid-column width="two-thirds">
               <ck-table-filters @search="onSearch">
                 <gov-form-group>
-                  <gov-label for="filter[name]">Resource Name</gov-label>
+                  <gov-label for="filter[name]" optional>Resource Name</gov-label>
                   <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                 </gov-form-group>
 
                 <template slot="extra-filters">
                   <gov-form-group>
-                    <gov-label for="filter[organisation_name]">Organisation Name</gov-label>
+                    <gov-label for="filter[organisation_name]" optional>Organisation Name</gov-label>
                     <gov-input v-model="filters.organisation_name" id="filter[organisation_name]" name="filter[organisation_name]" type="search"/>
                   </gov-form-group>
                 </template>

@@ -8,14 +8,14 @@
         <gov-heading size="m">{{ reportType.type }}</gov-heading>
         <gov-body>{{ reportType.description }}</gov-body>
 
-        <gov-heading size="s">Scheduled generation</gov-heading>
-        <gov-body>This decides the regularity of when reports are sent to you.</gov-body>
         <ck-radio-input
           :id="`repeat_type[${reportType.type}]`"
           v-model="reportType.scheduleForm.repeat_type"
           :error="reportType.scheduleForm.$errors.get('repeat_type')"
           @input="reportType.scheduleForm.$errors.clear('repeat_type')"
           :options="repeatTypeOptions"
+          label="Scheduled generation"
+          hint="This decides the regularity of when reports are sent to you."
         />
         <gov-button v-if="!reportType.scheduleForm.$submitting" type="submit" @click="onSaveReportSchedule(reportType)">Save frequency</gov-button>
         <gov-button v-else type="submit" disabled>Saving...</gov-button>

@@ -22,6 +22,8 @@
 </template>
 
 <script>
+import Auth from "@/classes/Auth";
+
 export default {
   name: "Admin",
   data() {
@@ -31,7 +33,8 @@ export default {
         { heading: "Notifications", to: { name: "admin-index-notifications" } },
         { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
         { heading: "Collections", to: { name: "admin-index-collections" } },
-        { heading: "Search engine", to: { name: "admin-index-search-engine" } }
+        { heading: "Search Engine", to: { name: "admin-index-search-engine" } },
+        { heading: "Stale Services", to: { name: "admin-index-stale-services" }, hide: !Auth.isSuperAdmin }
       ]
     };
   }

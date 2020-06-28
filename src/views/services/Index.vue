@@ -149,12 +149,12 @@ export default {
       }
 
       if (difference >= 6) {
-        return `<div class="app-freshness app-freshness--old" title="Old (${title})"></div>`;
+        return `<div class="app-freshness app-freshness--old" title="Old (${title})"></div> ${start.format('D/M/YYYY')}`;
       } else if (difference >= 3) {
-        return `<div class="app-freshness app-freshness--stale" title="Stale (${title})"></div>`;
+        return `<div class="app-freshness app-freshness--stale" title="Stale (${title})"></div> ${start.format('D/M/YYYY')}`;
       }
 
-      return `<div class="app-freshness app-freshness--fresh" title="Fresh (${title})"></div>`;
+      return `<div class="app-freshness app-freshness--fresh" title="Fresh (${title})"></div> ${start.format('D/M/YYYY')}`;
     },
     displayReferralMethod(referralMethod) {
       return referralMethod.charAt(0).toUpperCase() + referralMethod.substr(1);

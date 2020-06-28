@@ -421,7 +421,12 @@ let router = new Router({
           path: "cms/updated",
           name: "admin-index-cms-updated",
           component: () => import("@/views/admin/index/cms/Updated")
-        }
+        },
+        {
+          path: "stale-services",
+          name: "admin-index-stale-services",
+          component: () => import("@/views/admin/index/StaleServices")
+        },
       ]
     },
     {

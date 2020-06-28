@@ -1,13 +1,13 @@
 <template>
-  <router-link v-if="to" :to="to" class="govuk-button" :class="computedClasses">
+  <router-link v-if="to" :to="to" class="govuk-button" :class="computedClasses" :disabled="disabled">
     <slot />
   </router-link>
 
-  <a v-else-if="href" :href="href" class="govuk-button" :class="computedClasses">
+  <a v-else-if="href" :href="href" class="govuk-button" :class="computedClasses" :disabled="disabled">
     <slot />
   </a>
 
-  <button v-else @click="onClick" :type="type" class="govuk-button" :class="computedClasses">
+  <button v-else @click="onClick" :type="type" class="govuk-button" :class="computedClasses" :disabled="disabled">
     <slot />
   </button>
 </template>
@@ -51,10 +51,19 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false
     }
   },
   methods: {
     onClick() {
+      if (this.disabled) {
+        return;
+      }
+
       this.$emit("click");
     }
   },

@@ -164,9 +164,15 @@ let router = new Router({
       meta: { auth: true }
     },
     {
-      path: "/services/pre-create",
-      name: "services-pre-create",
-      component: () => import("@/views/services/PreCreate"),
+      path: "/services/pre-create/1",
+      name: "services-pre-create-1",
+      component: () => import("@/views/services/PreCreate1"),
+      meta: { auth: true }
+    },
+    {
+      path: "/services/pre-create/2",
+      name: "services-pre-create-2",
+      component: () => import("@/views/services/PreCreate2"),
       meta: { auth: true }
     },
     {

@@ -134,7 +134,7 @@ export default {
       this.$refs.servicesTable.fetchResources();
     },
     onAddService() {
-      this.$router.push({ name: "services-pre-create" });
+      this.$router.push({ name: "services-pre-create-1" });
     },
     displayStatus(status) {
       switch (status) {

@@ -8,7 +8,7 @@ export default class Form {
    * @param {object} data
    * @param {object} config
    */
-  constructor(data, config = {}) {
+  constructor(data = {}, config = {}) {
     this.$originalData = data;
 
     for (let field in data) {

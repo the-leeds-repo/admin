@@ -28,6 +28,15 @@
                     <gov-label for="filter[status]" optional>Status</gov-label>
                     <gov-select v-model="filters.status" id="filter[status]" name="filter[status]" :options="statuses"/>
                   </gov-form-group>
+
+                  <gov-form-group>
+                    <gov-label for="filter[status]" optional>Taxonomies</gov-label>
+                    <category-taxonomy-input
+                      v-model="filters.taxonomy_id"
+                      value-consists-of="LEAF_PRIORITY"
+                      :error="false"
+                    />
+                  </gov-form-group>
                 </template>
               </ck-table-filters>
             </gov-grid-column>
@@ -64,16 +73,18 @@
 <script>
 import CkResourceListingTable from "@/components/Ck/CkResourceListingTable.vue";
 import CkTableFilters from "@/components/Ck/CkTableFilters.vue";
+import CategoryTaxonomyInput from "@/views/services/inputs/CategoryTaxonomyInput";
 
 export default {
   name: "ListServices",
-  components: { CkResourceListingTable, CkTableFilters },
+  components: { CkResourceListingTable, CkTableFilters, CategoryTaxonomyInput },
   data() {
     return {
       filters: {
         name: "",
         organisation_name: "",
-        status: ""
+        status: "",
+        taxonomy_id: []
       },
       statuses: [
         { value: "", text: "All" },
@@ -98,6 +109,10 @@ export default {
 
       if (this.filters.status !== "") {
         params["filter[status]"] = this.filters.status;
+      }
+
+      if (this.filters.taxonomy_id.length > 0) {
+        params["filter[taxonomy_id]"] = this.filters.taxonomy_id.join(",");
       }
 
       return params;

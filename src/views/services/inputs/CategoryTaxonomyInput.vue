@@ -6,7 +6,7 @@
       :value="value"
       @input="onInput"
       :options="taxonomies"
-      value-consists-of="ALL_WITH_INDETERMINATE"
+      :value-consists-of="valueConsistsOf"
       :normalizer="normalizer"
       :multiple="true"
       placeholder="Select associated taxonomies..."
@@ -43,6 +43,11 @@ export default {
       required: false,
       type: Boolean,
       default: false
+    },
+    valueConsistsOf: {
+      required: false,
+      type: String,
+      default: "ALL_WITH_INDETERMINATE"
     }
   },
   data() {

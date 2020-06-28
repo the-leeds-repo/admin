@@ -18,6 +18,11 @@
                   <gov-input v-model="filters.name" id="filter[name]" name="filter[name]" type="search"/>
                 </gov-form-group>
 
+                <gov-form-group>
+                  <gov-label for="filter[postcode]" optional>Postcode</gov-label>
+                  <gov-input v-model="filters.postcode" id="filter[postcode]" name="filter[postcode]" type="search"/>
+                </gov-form-group>
+
                 <template slot="extra-filters">
                   <gov-form-group>
                     <gov-label for="filter[organisation_name]" optional>Organisation name</gov-label>
@@ -82,6 +87,7 @@ export default {
     return {
       filters: {
         name: "",
+        postcode: "",
         organisation_name: "",
         status: "",
         taxonomy_id: []
@@ -101,6 +107,10 @@ export default {
 
       if (this.filters.name !== "") {
         params["filter[name]"] = this.filters.name;
+      }
+
+      if (this.filters.postcode !== "") {
+        params["filter[postcode]"] = this.filters.postcode;
       }
 
       if (this.filters.organisation_name !== "") {

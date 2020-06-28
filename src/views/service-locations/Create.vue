@@ -99,9 +99,17 @@ export default {
         await this.locationForm.post("/locations", (config, data) => {
           data.validate_only = true;
         });
-        await this.form.post("/service-locations", (config, data) => {
-          data.validate_only = true;
-        });
+        try {
+          await this.form.post("/service-locations", (config, data) => {
+            data.validate_only = true;
+          });
+        } catch (exception) {
+          Object.keys(exception.errors).forEach((field) => {
+            if (!['location_id'].includes(field)) {
+              throw exception;
+            }
+          })
+        }
 
         // Post the location if new.
         if (this.location_type === "new") {

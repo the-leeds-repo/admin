@@ -104,6 +104,21 @@ export default {
           })
         },
         {
+          type: "Search Histories Export",
+          description:
+            "Generate a report of all the keyword search queries entered on " +
+            "the site, between a certain time period.",
+          scheduleForm: new Form({
+            report_type: "Search Histories Export",
+            repeat_type: null
+          }),
+          generateForm: new Form({
+            report_type: "Search Histories Export",
+            starts_at: "",
+            ends_at: ""
+          })
+        },
+        {
           type: "Services Export",
           description:
             "Generate a list of all services, including contact " +
@@ -213,6 +228,8 @@ export default {
           return false;
         case "Organisations Export":
           return false;
+        case "Search Histories Export":
+          return true;
         case "Services Export":
           return false;
         case "Users Export":

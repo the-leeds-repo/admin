@@ -14,6 +14,11 @@
 
         <gov-section-break size="l" />
 
+        <gov-body>Some of the topics you may find, may have a parent that states for authorised use only after it.</gov-body>
+        <gov-body>For example: Accreditation (authorised use only)</gov-body>
+        <gov-body>This indicates that any child topics underneath this, should only be used if you are aware of their meaning and can confirm any processes behind them have been followed.</gov-body>
+        <gov-body>For example, a topic may say 'Clinically accredited', which indicates a clinician has followed a specific formal process to accredit the service or resource.</gov-body>
+
         <category-taxonomy-input
           :value="category_taxonomies"
           @input="$emit('update:category_taxonomies', $event)"

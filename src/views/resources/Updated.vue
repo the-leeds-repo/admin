@@ -17,9 +17,7 @@
           <gov-grid-column width="one-half">
             <gov-heading size="xl">Update request submitted</gov-heading>
             <gov-body>
-              Your update request for this resource has been received. It will
-              need to be approved by an admin before the changes will be
-              applied.
+              Thank you for submitting your update, the LOOP team will review and approve your record within 5-7 working days. If you have any problems or queries, please contact <gov-link :href="`mailto:info@looprepository.org`">info@looprepository.org</gov-link>.
             </gov-body>
 
             <gov-button

@@ -21,6 +21,7 @@
               :url.sync="form.url"
               :email.sync="form.email"
               :phone.sync="form.phone"
+              :is_hidden.sync="form.is_hidden"
               @update:logo_file_id="form.logo_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
@@ -69,6 +70,7 @@ export default {
         url: this.organisation.url,
         email: this.organisation.email,
         phone: this.organisation.phone,
+        is_hidden: this.organisation.is_hidden,
         logo_file_id: null
       });
 
@@ -96,6 +98,9 @@ export default {
           }
           if (data.phone === this.organisation.phone) {
             delete data.phone;
+          }
+          if (data.is_hidden === this.organisation.is_hidden) {
+            delete data.is_hidden;
           }
 
           // Remove the logo from the request if null, or delete if false.

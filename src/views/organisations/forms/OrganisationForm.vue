@@ -59,6 +59,23 @@
       :error="errors.get('email')"
     />
 
+    <gov-form-group v-if="auth.isGlobalAdmin" :invalid="errors.has('is_hidden')">
+      <gov-checkboxes>
+        <gov-checkbox
+          :value="is_hidden"
+          @input="onInput('is_hidden', $event)"
+          id="is_hidden"
+          name="is_hidden"
+          label="Hide from search?"
+        />
+        <gov-error-message
+          v-if="errors.has('is_hidden')"
+          v-text="errors.get('is_hidden')"
+          for="is_hidden"
+        />
+      </gov-checkboxes>
+    </gov-form-group>
+
     <ck-image-input
       @input="onInput('logo_file_id', $event.file_id)"
       id="logo"
@@ -101,6 +118,10 @@ export default {
     phone: {
       required: true,
       type: String
+    },
+    is_hidden: {
+      required: true,
+      type: Boolean
     },
     email: {
       required: true,

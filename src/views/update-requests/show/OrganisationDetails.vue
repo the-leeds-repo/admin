@@ -44,6 +44,12 @@
           <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="organisation.hasOwnProperty('is_hidden')">
+          <gov-table-header top scope="row">Hide from search?</gov-table-header>
+          <gov-table-cell>{{ original.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="organisation.hasOwnProperty('description')">
           <gov-table-header top scope="row">Description</gov-table-header>
           <gov-table-cell v-html="toHtml(original.description)" />

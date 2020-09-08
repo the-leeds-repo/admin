@@ -22,6 +22,10 @@
         <gov-table-cell>{{ organisation.email }}</gov-table-cell>
       </gov-table-row>
       <gov-table-row>
+        <gov-table-header top scope="row">Hide from search?</gov-table-header>
+        <gov-table-cell>{{ organisation.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>
+      </gov-table-row>
+      <gov-table-row>
         <gov-table-header top scope="row">Logo</gov-table-header>
         <gov-table-cell>
           <img :src="apiUrl(`/organisations/${organisation.id}/logo.png?v=${organisation.updated_at}`)" alt="Organisation logo" class="ck-logo">

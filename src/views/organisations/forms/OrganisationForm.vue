@@ -59,6 +59,76 @@
       :error="errors.get('email')"
     />
 
+    <ck-text-input
+      :value="address_line_1"
+      @input="onInput('address_line_1', $event)"
+      id="address_line_1"
+      label="Address Line 1"
+      type="text"
+      :error="errors.get('address_line_1')"
+      optional
+    />
+
+    <ck-text-input
+      :value="address_line_2"
+      @input="onInput('address_line_2', $event)"
+      id="address_line_2"
+      label="Address Line 2"
+      type="text"
+      :error="errors.get('address_line_2')"
+      optional
+    />
+
+    <ck-text-input
+      :value="address_line_3"
+      @input="onInput('address_line_3', $event)"
+      id="address_line_3"
+      label="Address Line 3"
+      type="text"
+      :error="errors.get('address_line_3')"
+      optional
+    />
+
+    <ck-text-input
+      :value="city"
+      @input="onInput('city', $event)"
+      id="city"
+      label="City"
+      type="text"
+      :error="errors.get('city')"
+      optional
+    />
+
+    <ck-text-input
+      :value="county"
+      @input="onInput('county', $event)"
+      id="county"
+      label="County"
+      type="text"
+      :error="errors.get('county')"
+      optional
+    />
+
+    <ck-text-input
+      :value="postcode"
+      @input="onInput('postcode', $event)"
+      id="postcode"
+      label="Postcode"
+      type="text"
+      :error="errors.get('postcode')"
+      optional
+    />
+
+    <ck-select-input
+      :value="country"
+      @input="onInput('country', $event)"
+      id="country"
+      label="Country"
+      :options="countries"
+      :error="errors.get('country')"
+      optional
+    />
+
     <gov-form-group v-if="auth.isGlobalAdmin" :invalid="errors.has('is_hidden')">
       <gov-checkboxes>
         <gov-checkbox
@@ -67,6 +137,7 @@
           id="is_hidden"
           name="is_hidden"
           label="Hide from search?"
+          optional
         />
         <gov-error-message
           v-if="errors.has('is_hidden')"
@@ -90,6 +161,7 @@
 
 <script>
 import CkImageInput from "@/components/Ck/CkImageInput";
+import countries from "@/storage/countries";
 
 export default {
   name: "OrganisationForm",
@@ -127,9 +199,42 @@ export default {
       required: true,
       type: String
     },
+    address_line_1: {
+      required: true,
+      type: String
+    },
+    address_line_2: {
+      required: true,
+      type: String
+    },
+    address_line_3: {
+      required: true,
+      type: String
+    },
+    city: {
+      required: true,
+      type: String
+    },
+    county: {
+      required: true,
+      type: String
+    },
+    postcode: {
+      required: true,
+      type: String
+    },
+    country: {
+      required: true,
+      type: String
+    },
     id: {
       required: false,
       type: String
+    }
+  },
+  data() {
+    return {
+      countries
     }
   },
   methods: {

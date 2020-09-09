@@ -44,6 +44,48 @@
           <gov-table-cell>{{ organisation.phone }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="organisation.hasOwnProperty('address_line_1')">
+          <gov-table-header top scope="row">Address line 1</gov-table-header>
+          <gov-table-cell>{{ original.address_line_1 }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.address_line_1 }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('address_line_2')">
+          <gov-table-header top scope="row">Address line 2</gov-table-header>
+          <gov-table-cell>{{ original.address_line_2 }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.address_line_2 }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('address_line_3')">
+          <gov-table-header top scope="row">Address line 3</gov-table-header>
+          <gov-table-cell>{{ original.address_line_3 }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.address_line_3 }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('city')">
+          <gov-table-header top scope="row">City</gov-table-header>
+          <gov-table-cell>{{ original.city }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.city }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('county')">
+          <gov-table-header top scope="row">County</gov-table-header>
+          <gov-table-cell>{{ original.county }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.county }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('postcode')">
+          <gov-table-header top scope="row">Postcode</gov-table-header>
+          <gov-table-cell>{{ original.postcode }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.postcode }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('country')">
+          <gov-table-header top scope="row">Country</gov-table-header>
+          <gov-table-cell>{{ original.country }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.country }}</gov-table-cell>
+        </gov-table-row>
+
         <gov-table-row v-if="organisation.hasOwnProperty('is_hidden')">
           <gov-table-header top scope="row">Hide from search?</gov-table-header>
           <gov-table-cell>{{ original.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>

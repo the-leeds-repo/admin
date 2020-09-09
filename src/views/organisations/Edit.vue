@@ -21,6 +21,13 @@
               :url.sync="form.url"
               :email.sync="form.email"
               :phone.sync="form.phone"
+              :address_line_1.sync="form.address_line_1"
+              :address_line_2.sync="form.address_line_2"
+              :address_line_3.sync="form.address_line_3"
+              :city.sync="form.city"
+              :county.sync="form.county"
+              :postcode.sync="form.postcode"
+              :country.sync="form.country"
               :is_hidden.sync="form.is_hidden"
               @update:logo_file_id="form.logo_file_id = $event"
               @clear="form.$errors.clear($event)"
@@ -70,6 +77,13 @@ export default {
         url: this.organisation.url,
         email: this.organisation.email,
         phone: this.organisation.phone,
+        address_line_1: this.organisation.address_line_1 || "",
+        address_line_2: this.organisation.address_line_2 || "",
+        address_line_3: this.organisation.address_line_3 || "",
+        city: this.organisation.city || "",
+        county: this.organisation.county || "",
+        postcode: this.organisation.postcode || "",
+        country: this.organisation.country || "",
         is_hidden: this.organisation.is_hidden,
         logo_file_id: null
       });

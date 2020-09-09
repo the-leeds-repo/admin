@@ -234,7 +234,10 @@ export default {
   },
   data() {
     return {
-      countries
+      countries: [
+        { text: "", value: "" },
+        ...countries
+      ]
     }
   },
   methods: {

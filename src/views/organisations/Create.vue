@@ -63,7 +63,7 @@ export default {
         city: "",
         county: "",
         postcode: "",
-        country: "United Kingdom",
+        country: "",
         is_hidden: false,
         logo_file_id: null
       })

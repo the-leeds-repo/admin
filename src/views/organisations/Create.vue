@@ -26,6 +26,8 @@
             :postcode.sync="form.postcode"
             :country.sync="form.country"
             :is_hidden.sync="form.is_hidden"
+            :civi_sync_enabled.sync="form.civi_sync_enabled"
+            :civi_id.sync="form.civi_id"
             @update:logo_file_id="form.logo_file_id = $event"
             @clear="form.$errors.clear($event)"
           />
@@ -65,6 +67,8 @@ export default {
         postcode: "",
         country: "",
         is_hidden: false,
+        civi_sync_enabled: false,
+        civi_id: '',
         logo_file_id: null
       })
     };

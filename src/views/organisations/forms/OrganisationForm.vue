@@ -147,6 +147,35 @@
       </gov-checkboxes>
     </gov-form-group>
 
+    <gov-form-group v-if="auth.isGlobalAdmin" :invalid="errors.has('civi_sync_enabled')">
+      <gov-checkboxes>
+        <gov-checkbox
+          :value="civi_sync_enabled"
+          @input="onInput('civi_sync_enabled', $event)"
+          id="civi_sync_enabled"
+          name="civi_sync_enabled"
+          label="Sync with CiviCRM?"
+          optional
+        />
+        <gov-error-message
+          v-if="errors.has('civi_sync_enabled')"
+          v-text="errors.get('civi_sync_enabled')"
+          for="civi_sync_enabled"
+        />
+      </gov-checkboxes>
+    </gov-form-group>
+
+    <ck-text-input
+      v-if="auth.isGlobalAdmin"
+      :value="civi_id"
+      @input="onInput('civi_id', $event)"
+      id="civi_id"
+      label="CiviCRM ID"
+      type="text"
+      :error="errors.get('civi_id')"
+      optional
+    />
+
     <ck-image-input
       @input="onInput('logo_file_id', $event.file_id)"
       id="logo"
@@ -224,6 +253,14 @@ export default {
       type: String
     },
     country: {
+      required: true,
+      type: String
+    },
+    civi_sync_enabled: {
+      required: true,
+      type: Boolean
+    },
+    civi_id: {
       required: true,
       type: String
     },

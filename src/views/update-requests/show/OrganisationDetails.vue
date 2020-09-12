@@ -32,6 +32,12 @@
           <gov-table-cell>{{ organisation.slug }}</gov-table-cell>
         </gov-table-row>
 
+        <gov-table-row v-if="organisation.hasOwnProperty('description')">
+          <gov-table-header top scope="row">Description</gov-table-header>
+          <gov-table-cell v-html="toHtml(original.description)" />
+          <gov-table-cell v-html="toHtml(organisation.description)" />
+        </gov-table-row>
+
         <gov-table-row v-if="organisation.hasOwnProperty('email')">
           <gov-table-header top scope="row">Email</gov-table-header>
           <gov-table-cell>{{ original.email }}</gov-table-cell>
@@ -92,10 +98,16 @@
           <gov-table-cell>{{ organisation.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>
         </gov-table-row>
 
-        <gov-table-row v-if="organisation.hasOwnProperty('description')">
-          <gov-table-header top scope="row">Description</gov-table-header>
-          <gov-table-cell v-html="toHtml(original.description)" />
-          <gov-table-cell v-html="toHtml(organisation.description)" />
+        <gov-table-row v-if="organisation.hasOwnProperty('civi_sync_enabled')">
+          <gov-table-header top scope="row">Sync with CiviCRM?</gov-table-header>
+          <gov-table-cell>{{ original.civi_sync_enabled ? 'Yes' : 'No' }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.civi_sync_enabled ? 'Yes' : 'No' }}</gov-table-cell>
+        </gov-table-row>
+
+        <gov-table-row v-if="organisation.hasOwnProperty('civi_id')">
+          <gov-table-header top scope="row">CiviCRM ID</gov-table-header>
+          <gov-table-cell>{{ original.civi_id }}</gov-table-cell>
+          <gov-table-cell>{{ organisation.civi_id }}</gov-table-cell>
         </gov-table-row>
 
         <gov-table-row v-if="organisation.hasOwnProperty('logo_file_id')">

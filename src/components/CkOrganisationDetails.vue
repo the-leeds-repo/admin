@@ -53,6 +53,16 @@
         <gov-table-header top scope="row">Hide from search?</gov-table-header>
         <gov-table-cell>{{ organisation.is_hidden ? 'Hidden' : 'Visible' }}</gov-table-cell>
       </gov-table-row>
+      <template v-if="auth.isGlobalAdmin">
+        <gov-table-row>
+          <gov-table-header top scope="row">Sync with CiviCRM?</gov-table-header>
+          <gov-table-cell>{{ organisation.civi_sync_enabled ? 'Yes' : 'No' }}</gov-table-cell>
+        </gov-table-row>
+        <gov-table-row>
+          <gov-table-header top scope="row">CiviCRM ID</gov-table-header>
+          <gov-table-cell>{{ organisation.civi_id || '-' }}</gov-table-cell>
+        </gov-table-row>
+      </template>
       <gov-table-row>
         <gov-table-header top scope="row">Logo</gov-table-header>
         <gov-table-cell>

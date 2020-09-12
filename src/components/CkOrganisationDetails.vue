@@ -55,7 +55,7 @@
       </gov-table-row>
       <template v-if="auth.isGlobalAdmin">
         <gov-table-row>
-          <gov-table-header top scope="row">CiviCRM sync enabled?</gov-table-header>
+          <gov-table-header top scope="row">Sync with CiviCRM?</gov-table-header>
           <gov-table-cell>{{ organisation.civi_sync_enabled ? 'Yes' : 'No' }}</gov-table-cell>
         </gov-table-row>
         <gov-table-row>

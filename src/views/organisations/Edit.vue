@@ -29,6 +29,8 @@
               :postcode.sync="form.postcode"
               :country.sync="form.country"
               :is_hidden.sync="form.is_hidden"
+              :civi_sync_enabled.sync="form.civi_sync_enabled"
+              :civi_id.sync="form.civi_id"
               @update:logo_file_id="form.logo_file_id = $event"
               @clear="form.$errors.clear($event)"
             />
@@ -85,6 +87,8 @@ export default {
         postcode: this.organisation.postcode || "",
         country: this.organisation.country || "",
         is_hidden: this.organisation.is_hidden,
+        civi_sync_enabled: this.organisation.civi_sync_enabled,
+        civi_id: this.organisation.civi_id || "",
         logo_file_id: null
       });
 
@@ -136,6 +140,12 @@ export default {
           }
           if (data.is_hidden === this.organisation.is_hidden) {
             delete data.is_hidden;
+          }
+          if (data.civi_sync_enabled === this.organisation.civi_sync_enabled) {
+            delete data.civi_sync_enabled;
+          }
+          if (data.civi_id === (this.organisation.civi_id || "")) {
+            delete data.civi_id;
           }
 
           // Remove the logo from the request if null, or delete if false.

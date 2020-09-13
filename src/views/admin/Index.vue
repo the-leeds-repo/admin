@@ -34,7 +34,8 @@ export default {
         { heading: "Taxonomies", to: { name: "admin-index-taxonomies" } },
         { heading: "Collections", to: { name: "admin-index-collections" } },
         { heading: "Search Engine", to: { name: "admin-index-search-engine" } },
-        { heading: "Stale Services", to: { name: "admin-index-stale-services" }, hide: !Auth.isSuperAdmin }
+        { heading: "Stale Services", to: { name: "admin-index-stale-services" }, hide: !Auth.isSuperAdmin },
+        { heading: "CiviCRM", to: { name: "admin-index-civi" }, hide: !Auth.isGlobalAdmin }
       ]
     };
   }

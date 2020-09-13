@@ -309,6 +309,11 @@ let router = new Router({
           component: () => import("@/views/admin/index/Notifications")
         },
         {
+          path: "civi",
+          name: "admin-index-civi",
+          component: () => import("@/views/admin/index/Civi")
+        },
+        {
           path: "feedback",
           name: "admin-index-feedback",
           component: () => import("@/views/admin/index/Feedback")

@@ -5,7 +5,7 @@
     <gov-heading size="l">CiviCRM</gov-heading>
     <ck-loader v-if="loading" />
     <template v-else>
-      <ck-notifications-table :notifications="notifications" />
+      <ck-failed-civi-syncs-table :failed-civi-syncs="failedCiviSyncs" @retry="onRetry" />
       <gov-body>
         Page {{ currentPage }} of {{ lastPage }}
         <gov-link v-if="currentPage > 1" @click="onPrevious">Back</gov-link>&nbsp;<!--
@@ -17,27 +17,30 @@
 
 <script>
 import http from "@/http";
-import CkNotificationsTable from "@/components/CkNotificationsTable";
+import CkFailedCiviSyncsTable from "@/components/CkFailedCiviSyncsTable";
 
 export default {
   name: "ListCiviCRM",
-  components: { CkNotificationsTable },
+  components: { CkFailedCiviSyncsTable },
   data() {
     return {
       loading: false,
-      notifications: [],
+      failedCiviSyncs: [],
       currentPage: 1,
       lastPage: 1
     };
   },
   methods: {
-    async fetchNotifications() {
+    async fetchFailedCiviSyncs() {
       this.loading = true;
 
-      const { data } = await http.get("/notifications", {
-        params: { page: this.currentPage }
+      const { data } = await http.get("/failed-civi-syncs", {
+        params: {
+          page: this.currentPage,
+          include: 'organisation'
+        }
       });
-      this.notifications = data.data;
+      this.failedCiviSyncs = data.data;
       this.currentPage = data.meta.current_page;
       this.lastPage = data.meta.last_page;
 
@@ -45,15 +48,19 @@ export default {
     },
     onNext() {
       this.currentPage++;
-      this.fetchNotifications();
+      this.fetchFailedCiviSyncs();
     },
     onPrevious() {
       this.currentPage--;
-      this.fetchNotifications();
+      this.fetchFailedCiviSyncs();
+    },
+    onRetry() {
+      this.currentPage = 1;
+      this.fetchFailedCiviSyncs();
     }
   },
   created() {
-    this.fetchNotifications();
+    this.fetchFailedCiviSyncs();
   }
 };
 </script>

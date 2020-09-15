@@ -166,7 +166,7 @@
     </gov-form-group>
 
     <ck-text-input
-      v-if="auth.isGlobalAdmin"
+      v-if="civi_id !== false && auth.isGlobalAdmin"
       :value="civi_id"
       @input="onInput('civi_id', $event)"
       id="civi_id"
@@ -261,8 +261,9 @@ export default {
       type: Boolean
     },
     civi_id: {
-      required: true,
-      type: String
+      required: false,
+      type: [String, Boolean],
+      default: false
     },
     id: {
       required: false,

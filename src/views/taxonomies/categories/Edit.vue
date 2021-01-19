@@ -77,7 +77,15 @@ export default {
       this.loading = false;
     },
     async onSubmit() {
-      await this.form.put(`/taxonomies/categories/${this.taxonomy.id}`);
+      await this.form.put(
+        `/taxonomies/categories/${this.taxonomy.id}`,
+        (config, data) => {
+          // If parent has changed, then set order to first position.
+          if (data.parent_id !== this.taxonomy.parent_id) {
+            data.order = 1
+          }
+        }
+      );
       this.$router.push({ name: "admin-index-taxonomies" });
     },
     onDelete() {
